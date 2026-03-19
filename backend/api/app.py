@@ -14,10 +14,10 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from .predict import SpamPredictor, PredictionResult
-from .utils import setup_logger, MODELS_DIR
+from ..inference.predictor import SpamPredictor
+from ..utils.logging import get_logger
 
-logger = setup_logger(__name__)
+logger = get_logger(__name__)
 
 
 # =============================================================================
