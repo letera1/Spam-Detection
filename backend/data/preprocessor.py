@@ -1,14 +1,23 @@
 """
-Text preprocessing module.
+Advanced Text preprocessing module.
 
 Provides reusable text cleaning and normalization functions
 for both training and inference pipelines.
+
+Features:
+- Standard text cleaning (lowercase, punctuation, etc.)
+- URL, email, phone number detection and handling
+- Emoji and emoticon processing
+- Social media pattern handling (mentions, hashtags)
+- Spam-specific pattern detection
+- Custom spam feature extraction
 """
 
 import re
 import string
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from functools import lru_cache
+from dataclasses import dataclass, field
 
 import nltk
 from nltk.corpus import stopwords
@@ -41,18 +50,75 @@ def _download_nltk_data():
 _download_nltk_data()
 
 
+@dataclass
+class SpamFeatures:
+    """Container for extracted spam-indicative features."""
+
+    has_urls: bool = False
+    url_count: int = 0
+    has_emails: bool = False
+    has_phone: bool = False
+    has_money_symbols: bool = False
+    money_count: int = 0
+    has_excessive_punctuation: bool = False
+    has_all_caps: bool = False
+    emoji_count: int = 0
+    has_suspicious_words: bool = False
+    suspicious_word_count: int = 0
+    exclamation_count: int = 0
+    question_count: int = 0
+    avg_word_length: float = 0.0
+    char_to_word_ratio: float = 0.0
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary."""
+        return {
+            "has_urls": self.has_urls,
+            "url_count": self.url_count,
+            "has_emails": self.has_emails,
+            "has_phone": self.has_phone,
+            "has_money_symbols": self.has_money_symbols,
+            "money_count": self.money_count,
+            "has_excessive_punctuation": self.has_excessive_punctuation,
+            "has_all_caps": self.has_all_caps,
+            "emoji_count": self.emoji_count,
+            "has_suspicious_words": self.has_suspicious_words,
+            "suspicious_word_count": self.suspicious_word_count,
+            "exclamation_count": self.exclamation_count,
+            "question_count": self.question_count,
+            "avg_word_length": round(self.avg_word_length, 2),
+            "char_to_word_ratio": round(self.char_to_word_ratio, 2),
+        }
+
+
 class TextPreprocessor:
     """
-    Reusable text preprocessor for spam detection.
+    Advanced reusable text preprocessor for spam detection.
 
     Applies a pipeline of transformations:
     1. Lowercase conversion
-    2. URL/email/phone removal
-    3. Punctuation removal
-    4. Stopword removal
-    5. Tokenization
-    6. Stemming/Lemmatization (optional)
+    2. URL/email/phone removal or marking
+    3. Emoji and emoticon processing
+    4. Punctuation removal
+    5. Stopword removal
+    6. Tokenization
+    7. Stemming/Lemmatization (optional)
+    8. Spam feature extraction
     """
+
+    # Common spam indicator words
+    SPAM_WORDS = {
+        'free', 'winner', 'won', 'prize', 'cash', 'money', 'claim',
+        'urgent', 'act now', 'limited', 'offer', 'discount', 'buy',
+        'click', 'subscribe', 'apply now', 'call now', 'order',
+        'credit', 'loan', 'mortgage', 'investment', 'income',
+        'guarantee', 'risk-free', 'no obligation', 'cancel anytime',
+        'congratulations', 'selected', 'exclusive', 'secret',
+        'password', 'account', 'verify', 'suspended', 'update',
+        'lottery', 'million', 'dollars', 'pounds', 'euros',
+        'viagra', 'cialis', 'medication', 'prescription', 'pharmacy',
+        'weight loss', 'diet', 'miracle', 'amazing', 'incredible',
+    }
 
     def __init__(
         self,
@@ -61,6 +127,8 @@ class TextPreprocessor:
         use_lemmatization: bool = False,
         min_length: int = 2,
         custom_stopwords: Optional[List[str]] = None,
+        extract_spam_features: bool = True,
+        mark_special_tokens: bool = False,
     ):
         """
         Initialize the text preprocessor.
@@ -71,11 +139,15 @@ class TextPreprocessor:
             use_lemmatization: Apply WordNet lemmatization
             min_length: Minimum character length for tokens
             custom_stopwords: Additional stopwords to remove
+            extract_spam_features: Extract spam-indicative features
+            mark_special_tokens: Mark URLs/emails instead of removing
         """
         self.remove_stopwords = remove_stopwords
         self.use_stemming = use_stemming
         self.use_lemmatization = use_lemmatization
         self.min_length = min_length
+        self.extract_spam_features = extract_spam_features
+        self.mark_special_tokens = mark_special_tokens
 
         try:
             self.stopwords_set = set(stopwords.words("english"))
@@ -91,7 +163,8 @@ class TextPreprocessor:
 
         # Compile regex patterns
         self.url_pattern = re.compile(
-            r"http\S+|www\.\S+|https?\S+|bit\.ly\S+|t\.co\S+", re.IGNORECASE
+            r"http\S+|www\.\S+|https?\S+|bit\.ly\S+|t\.co\S+|goo\.gl\S+",
+            re.IGNORECASE
         )
         self.email_pattern = re.compile(
             r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
@@ -99,10 +172,31 @@ class TextPreprocessor:
         self.phone_pattern = re.compile(
             r"\b(?:\+?\d{1,3}[-.\s]?)?(?:\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}\b"
         )
+        self.money_pattern = re.compile(
+            r"[$£€¥]\s*\d+(?:[.,]\d+)*|\d+(?:[.,]\d+)\s*(?:dollars?|pounds?|euros?|usd|gbp|eur)"
+            r"|cash|money|prize|reward|payment",
+            re.IGNORECASE
+        )
+        self.emoji_pattern = re.compile(
+            "["
+            "\U0001F600-\U0001F64F"  # emoticons
+            "\U0001F300-\U0001F5FF"  # symbols & pictographs
+            "\U0001F680-\U0001F6FF"  # transport & map symbols
+            "\U0001F1E0-\U0001F1FF"  # flags
+            "\U00002702-\U000027B0"
+            "\U000024C2-\U0001F251"
+            "]+",
+            flags=re.UNICODE
+        )
+        self.hashtag_pattern = re.compile(r"#\w+")
+        self.mention_pattern = re.compile(r"@\w+")
+        self.exclamation_pattern = re.compile(r"!+")
+        self.question_pattern = re.compile(r"\?+")
 
         logger.info(
             f"Preprocessor initialized: stopwords={remove_stopwords}, "
-            f"stemming={use_stemming}, lemmatization={use_lemmatization}"
+            f"stemming={use_stemming}, lemmatization={use_lemmatization}, "
+            f"spam_features={extract_spam_features}"
         )
 
     def _remove_urls(self, text: str) -> str:
