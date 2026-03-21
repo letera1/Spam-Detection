@@ -9,19 +9,19 @@ Encapsulates the full ML pipeline:
 
 import joblib
 from pathlib import Path
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Union
 
 from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 
-from ..config.settings import (
-    MODELS_DIR,
+from ..config.hyperparameters import (
     DEFAULT_PARAMS,
     HYPERPARAM_GRIDS,
     VECTORIZER_PRESETS,
 )
+from ..config.settings import MODELS_DIR
 from ..utils.logging import get_logger
 
 logger = get_logger(__name__)
