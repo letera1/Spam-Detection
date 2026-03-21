@@ -9,8 +9,10 @@ Provides REST API endpoints for:
 
 from typing import List, Optional
 from contextlib import asynccontextmanager
+import io
+import csv
 
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -307,6 +309,176 @@ async def analyze_message(request: PredictionRequest):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Analysis failed: {str(e)}",
+        )
+
+
+class BatchAnalysisRequest(BaseModel):
+    """Request model for batch analysis."""
+
+    texts: List[str] = Field(..., min_length=1, max_length=1000, description="List of messages to analyze")
+    threshold: float = Field(default=0.5, ge=0.0, le=1.0, description="Classification threshold")
+    include_features: bool = Field(default=False, description="Include spam features in response")
+
+
+class BatchAnalysisResponse(BaseModel):
+    """Response model for batch analysis."""
+
+    results: List[PredictionResponse]
+    total: int
+    spam_count: int
+    ham_count: int
+    spam_percentage: float
+
+
+@app.post("/analyze/batch", response_model=BatchAnalysisResponse, tags=["Analysis"])
+async def analyze_batch(request: BatchAnalysisRequest):
+    """
+    Analyze multiple messages with detailed feature extraction.
+
+    Args:
+        request: BatchAnalysisRequest with list of texts
+
+    Returns:
+        BatchAnalysisResponse with all classification results
+    """
+    if app_state.predictor is None:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Model not loaded. Please train a model first.",
+        )
+
+    try:
+        results = []
+        for text in request.texts:
+            result = app_state.predictor.analyze(text, request.threshold)
+            if not request.include_features:
+                result.features = None
+            results.append(result)
+
+        spam_count = sum(1 for r in results if r.label == "spam")
+        ham_count = len(results) - spam_count
+
+        return BatchAnalysisResponse(
+            results=[
+                PredictionResponse(
+                    text=r.text,
+                    label=r.label,
+                    confidence=r.confidence,
+                    probabilities=r.to_dict()["probabilities"],
+                    features=r.features,
+                    explanation=r.explanation,
+                )
+                for r in results
+            ],
+            total=len(results),
+            spam_count=spam_count,
+            ham_count=ham_count,
+            spam_percentage=round((spam_count / len(results)) * 100, 2) if results else 0,
+        )
+    except Exception as e:
+        logger.error(f"Batch analysis error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Batch analysis failed: {str(e)}",
+        )
+
+
+@app.post("/upload/file", response_model=BatchAnalysisResponse, tags=["File Upload"])
+async def upload_file(
+    file: UploadFile = File(..., description="CSV or TXT file containing messages"),
+    threshold: float = File(default=0.5, ge=0.0, le=1.0, description="Classification threshold"),
+    include_features: bool = File(default=False, description="Include spam features in response"),
+):
+    """
+    Upload a CSV or TXT file for batch spam analysis.
+
+    Supported formats:
+    - CSV: Must have a 'text' column or use the first column
+    - TXT: One message per line
+
+    Args:
+        file: Uploaded file
+        threshold: Classification threshold
+        include_features: Whether to include spam features
+
+    Returns:
+        BatchAnalysisResponse with all classification results
+    """
+    if app_state.predictor is None:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Model not loaded. Please train a model first.",
+        )
+
+    try:
+        content = await file.read()
+        content_str = content.decode("utf-8")
+        messages = []
+
+        if file.filename.endswith(".csv"):
+            # Parse CSV
+            reader = csv.DictReader(io.StringIO(content_str))
+            if "text" in reader.fieldnames:
+                messages = [row["text"] for row in reader if row.get("text")]
+            else:
+                # Use first column
+                reader = csv.reader(io.StringIO(content_str))
+                messages = [row[0] for row in reader if row and row[0]]
+        else:
+            # Parse TXT (one message per line)
+            messages = [line.strip() for line in content_str.split("\n") if line.strip()]
+
+        if not messages:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="No messages found in file",
+            )
+
+        if len(messages) > 1000:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="File contains too many messages (max 1000)",
+            )
+
+        # Analyze all messages
+        results = []
+        for text in messages:
+            result = app_state.predictor.analyze(text, threshold)
+            if not include_features:
+                result.features = None
+            results.append(result)
+
+        spam_count = sum(1 for r in results if r.label == "spam")
+        ham_count = len(results) - spam_count
+
+        return BatchAnalysisResponse(
+            results=[
+                PredictionResponse(
+                    text=r.text,
+                    label=r.label,
+                    confidence=r.confidence,
+                    probabilities=r.to_dict()["probabilities"],
+                    features=r.features,
+                    explanation=r.explanation,
+                )
+                for r in results
+            ],
+            total=len(results),
+            spam_count=spam_count,
+            ham_count=ham_count,
+            spam_percentage=round((spam_count / len(results)) * 100, 2) if results else 0,
+        )
+    except csv.Error as e:
+        logger.error(f"CSV parsing error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Invalid CSV format: {str(e)}",
+        )
+    except Exception as e:
+        logger.error(f"File upload error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"File upload failed: {str(e)}",
         )
 
 
