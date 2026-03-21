@@ -100,7 +100,8 @@ class DataLoader:
                 if path.suffix == ".tsv" or "SMSSpamCollection" in path.name:
                     self._data = pd.read_csv(path, sep="\t", names=["label", "text"])
                 else:
-                    self._data = pd.read_csv(path)
+                    # CSV file with header
+                    self._data = pd.read_csv(path, engine="python")
                 self._data["label"] = self._data["label"].str.lower().str.strip()
                 return self._data
 
