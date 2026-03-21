@@ -4,11 +4,11 @@ Spam Detection System - Main Entry Point
 A production-ready ML system for spam/ham text classification.
 
 Usage:
-    python -m main train              # Train all models and save best
-    python -m main train --quick      # Train single best model
-    python -m main predict "message"  # Predict single message
-    python -m main api                # Start FastAPI server
-    python -m main interactive        # Interactive prediction session
+    python main.py train              # Train all models and save best
+    python main.py train --quick      # Train single best model
+    python main.py predict "message"  # Predict single message
+    python main.py api                # Start FastAPI server
+    python main.py interactive        # Interactive prediction session
 """
 
 import argparse
@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from backend.utils.logging import get_logger
 from backend.models.trainer import compare_models, train_model
