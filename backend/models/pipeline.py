@@ -37,10 +37,10 @@ class ModelFactory:
 
     @staticmethod
     def create_logistic_regression(
-        C: float = 1.0, max_iter: int = 1000, solver: str = "lbfgs"
+        C: float = 1.0, max_iter: int = 1000, solver: str = "lbfgs", random_state: int = 42
     ) -> LogisticRegression:
         """Create a Logistic Regression classifier."""
-        return LogisticRegression(C=C, max_iter=max_iter, solver=solver, random_state=42)
+        return LogisticRegression(C=C, max_iter=max_iter, solver=solver, random_state=random_state)
 
     @staticmethod
     def get_model(model_type: str, **kwargs):
