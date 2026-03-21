@@ -68,11 +68,12 @@ class DataLoader:
         logger.info(f"Loading SMS Spam Collection from: {url}")
 
         try:
-            if url.startswith("http"):
+            if url and url.startswith("http"):
                 self._data = pd.read_csv(url, sep=sep, header=None, names=["label", "text"])
+            elif url:
+                self._data = pd.read_csv(url, sep=sep)
             else:
-                self._data = pd.read_csv(url, sep=sep, quoting=3)
-                self._data.columns = ["label", "text"]
+                return self._load_local_fallback()
 
             self._data["label"] = self._data["label"].str.lower().str.strip()
 

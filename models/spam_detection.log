@@ -8,3 +8,9 @@
 2026-03-21 23:11:46 - backend.data.loader - INFO - Loading SMS Spam Collection from: None
 2026-03-21 23:11:46 - backend.data.loader - ERROR - Failed to load from URL: 'NoneType' object has no attribute 'startswith'
 2026-03-21 23:11:46 - backend.data.loader - INFO - Loading from local file: c:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\data\sms_spam.csv
+2026-03-21 23:13:02 - __main__ - INFO - Quick training mode - training single best model...
+2026-03-21 23:13:02 - backend.data.loader - INFO - Loading SMS Spam Collection from: None
+2026-03-21 23:13:02 - backend.data.loader - INFO - Loading from local file: c:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\data\sms_spam.csv
+2026-03-21 23:13:02 - backend.data.loader - ERROR - Failed to load from URL: Error tokenizing data. C error: Expected 1 fields in line 10, saw 2
+
+2026-03-21 23:13:02 - backend.data.loader - INFO - Loading from local file: c:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\data\sms_spam.csv
