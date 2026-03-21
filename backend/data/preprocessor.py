@@ -200,13 +200,31 @@ class TextPreprocessor:
         )
 
     def _remove_urls(self, text: str) -> str:
+        if self.mark_special_tokens:
+            return self.url_pattern.sub(" URL ", text)
         return self.url_pattern.sub(" ", text)
 
     def _remove_emails(self, text: str) -> str:
+        if self.mark_special_tokens:
+            return self.email_pattern.sub(" EMAIL ", text)
         return self.email_pattern.sub(" ", text)
 
     def _remove_phones(self, text: str) -> str:
+        if self.mark_special_tokens:
+            return self.phone_pattern.sub(" PHONE ", text)
         return self.phone_pattern.sub(" ", text)
+
+    def _remove_emojis(self, text: str) -> str:
+        """Remove emojis but count them for features."""
+        return self.emoji_pattern.sub(" ", text)
+
+    def _remove_hashtags(self, text: str) -> str:
+        """Remove hashtags but keep the word."""
+        return self.hashtag_pattern.sub(lambda m: " " + m.group()[1:] + " ", text)
+
+    def _remove_mentions(self, text: str) -> str:
+        """Remove @mentions."""
+        return self.mention_pattern.sub(" ", text)
 
     def _to_lowercase(self, text: str) -> str:
         return text.lower()
@@ -244,23 +262,98 @@ class TextPreprocessor:
     def _filter_by_length(self, tokens: List[str]) -> List[str]:
         return [t for t in tokens if len(t) >= self.min_length]
 
-    def preprocess(self, text: str) -> str:
+    def extract_features(self, text: str) -> SpamFeatures:
         """
-        Apply full preprocessing pipeline to a single text.
+        Extract spam-indicative features from text.
 
         Args:
             text: Raw input text
 
         Returns:
-            Preprocessed text (tokenized and cleaned)
+            SpamFeatures dataclass with extracted features
+        """
+        features = SpamFeatures()
+
+        if not isinstance(text, str) or not text.strip():
+            return features
+
+        # URL detection
+        urls = self.url_pattern.findall(text)
+        features.url_count = len(urls)
+        features.has_urls = features.url_count > 0
+
+        # Email detection
+        features.has_emails = bool(self.email_pattern.search(text))
+
+        # Phone detection
+        features.has_phone = bool(self.phone_pattern.search(text))
+
+        # Money symbols detection
+        money_matches = self.money_pattern.findall(text)
+        features.money_count = len(money_matches)
+        features.has_money_symbols = features.money_count > 0
+
+        # Emoji detection
+        emojis = self.emoji_pattern.findall(text)
+        features.emoji_count = len(emojis)
+
+        # Excessive punctuation
+        exclamations = self.exclamation_pattern.findall(text)
+        questions = self.question_pattern.findall(text)
+        features.exclamation_count = sum(len(m) for m in exclamations)
+        features.question_count = sum(len(m) for m in questions)
+        features.has_excessive_punctuation = (
+            features.exclamation_count > 2 or features.question_count > 2
+        )
+
+        # All caps words (shouting)
+        words = text.split()
+        caps_words = [w for w in words if w.isupper() and len(w) > 2]
+        features.has_all_caps = len(caps_words) > 2
+
+        # Suspicious/spam words
+        text_lower = text.lower()
+        suspicious = [w for w in self.SPAM_WORDS if w in text_lower]
+        features.suspicious_word_count = len(suspicious)
+        features.has_suspicious_words = features.suspicious_word_count > 0
+
+        # Text statistics
+        clean_words = [w for w in words if w.isalpha()]
+        if clean_words:
+            features.avg_word_length = sum(len(w) for w in clean_words) / len(clean_words)
+            features.char_to_word_ratio = len(text) / len(clean_words) if clean_words else 0
+
+        return features
+
+    def preprocess(self, text: str, return_features: bool = False):
+        """
+        Apply full preprocessing pipeline to a single text.
+
+        Args:
+            text: Raw input text
+            return_features: If True, return (processed_text, features) tuple
+
+        Returns:
+            Preprocessed text string, or (text, features) tuple
         """
         if not isinstance(text, str):
+            if return_features:
+                return "", SpamFeatures()
             return ""
 
+        # Extract features before cleaning if requested
+        features = None
+        if self.extract_spam_features and return_features:
+            features = self.extract_features(text)
+
+        # Apply preprocessing pipeline
         text = self._to_lowercase(text)
         text = self._remove_urls(text)
         text = self._remove_emails(text)
         text = self._remove_phones(text)
+        text = self._remove_emojis(text)
+        text = self._remove_hashtags(text)
+        text = self._remove_mentions(text)
         text = self._remove_punctuation(text)
         text = self._remove_digits(text)
         text = self._remove_extra_whitespace(text)
@@ -271,7 +364,11 @@ class TextPreprocessor:
         tokens = self._apply_lemmatization(tokens)
         tokens = self._filter_by_length(tokens)
 
-        return " ".join(tokens)
+        processed_text = " ".join(tokens)
+
+        if return_features and features:
+            return processed_text, features
+        return processed_text
 
     def preprocess_batch(self, texts: List[str]) -> List[str]:
         """

@@ -1,11 +1,13 @@
 """
-Prediction module for spam detection.
+Advanced Prediction module for spam detection.
 
-Provides inference functionality for classifying new messages.
+Provides inference functionality for classifying new messages
+with detailed analysis and feature extraction.
 """
 
 from pathlib import Path
 from typing import List, Dict, Any, Optional, Union
+from dataclasses import dataclass
 
 import joblib
 import numpy as np
@@ -16,32 +18,30 @@ from ..utils.logging import get_logger
 logger = get_logger(__name__)
 
 
+@dataclass
 class PredictionResult:
     """
-    Container for a single prediction result.
+    Container for a single prediction result with detailed analysis.
 
     Attributes:
         text: Original input text
         label: Predicted label ('ham' or 'spam')
         confidence: Confidence score for the prediction
         probabilities: Class probabilities [P(ham), P(spam)]
+        features: Extracted spam-indicative features
+        explanation: Human-readable explanation
     """
 
-    def __init__(
-        self,
-        text: str,
-        label: str,
-        confidence: float,
-        probabilities: np.ndarray,
-    ):
-        self.text = text
-        self.label = label
-        self.confidence = confidence
-        self.probabilities = probabilities
+    text: str
+    label: str
+    confidence: float
+    probabilities: np.ndarray
+    features: Optional[Dict[str, Any]] = None
+    explanation: Optional[str] = None
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
-        return {
+        result = {
             "text": self.text,
             "label": self.label,
             "confidence": round(self.confidence, 4),
@@ -50,6 +50,11 @@ class PredictionResult:
                 "spam": round(float(self.probabilities[1]), 4),
             },
         }
+        if self.features:
+            result["features"] = self.features
+        if self.explanation:
+            result["explanation"] = self.explanation
+        return result
 
     def __repr__(self) -> str:
         return f"PredictionResult(label={self.label}, confidence={self.confidence:.4f})"
