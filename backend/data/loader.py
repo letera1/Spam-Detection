@@ -69,8 +69,7 @@ class DataLoader:
 
         try:
             if url.startswith("http"):
-                self._data = pd.read_csv(url, sep=sep, quoting=3)
-                self._data.columns = ["label", "text"]
+                self._data = pd.read_csv(url, sep=sep, header=None, names=["label", "text"])
             else:
                 self._data = pd.read_csv(url, sep=sep, quoting=3)
                 self._data.columns = ["label", "text"]

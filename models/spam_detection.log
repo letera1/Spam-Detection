@@ -1,3 +1,6 @@
 2026-03-21 22:53:18 - __main__ - INFO - Quick training mode - training single best model...
 2026-03-21 22:53:18 - backend.data.loader - INFO - Loading SMS Spam Collection from: https://raw.githubusercontent.com/justmarkham/training-videos/master/data/sms.tsv
 2026-03-21 22:53:19 - backend.data.loader - ERROR - Failed to load from URL: HTTP Error 404: Not Found
+2026-03-21 22:54:16 - __main__ - INFO - Quick training mode - training single best model...
+2026-03-21 22:54:16 - backend.data.loader - INFO - Loading SMS Spam Collection from: https://raw.githubusercontent.com/Al-Fateh/SMSSpamCollection/master/SMSSpamCollection
+2026-03-21 22:54:17 - backend.data.loader - ERROR - Failed to load from URL: HTTP Error 404: Not Found
