@@ -50,7 +50,7 @@ class DataLoader:
 
     def load_sms_spam_collection(
         self,
-        url: str = "https://raw.githubusercontent.com/justmarkham/training-videos/master/data/sms.tsv",
+        url: str = "https://raw.githubusercontent.com/Al-Fateh/SMSSpamCollection/master/SMSSpamCollection",
         sep: str = "\t",
     ) -> pd.DataFrame:
         """
