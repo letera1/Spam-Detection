@@ -50,8 +50,8 @@ class DataLoader:
 
     def load_sms_spam_collection(
         self,
-        url: str = "https://raw.githubusercontent.com/Al-Fateh/SMSSpamCollection/master/SMSSpamCollection",
-        sep: str = "\t",
+        url: str = None,
+        sep: str = ",",
     ) -> pd.DataFrame:
         """
         Load the SMS Spam Collection Dataset.
