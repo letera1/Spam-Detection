@@ -46,6 +46,8 @@ class PredictionResponse(BaseModel):
     label: str
     confidence: float
     probabilities: dict
+    features: Optional[dict] = None
+    explanation: Optional[str] = None
 
 
 class BatchPredictionResponse(BaseModel):
@@ -264,6 +266,47 @@ async def get_spam_probability(text: str):
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to calculate probability: {str(e)}",
+        )
+
+
+@app.post("/analyze", response_model=PredictionResponse, tags=["Analysis"])
+async def analyze_message(request: PredictionRequest):
+    """
+    Analyze a message with detailed feature extraction and explanation.
+
+    This endpoint provides:
+    - Spam/ham classification
+    - Confidence score
+    - Extracted spam-indicative features
+    - Human-readable explanation
+
+    Args:
+        request: PredictionRequest with text and optional threshold
+
+    Returns:
+        PredictionResponse with detailed analysis
+    """
+    if app_state.predictor is None:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Model not loaded. Please train a model first.",
+        )
+
+    try:
+        result = app_state.predictor.analyze(request.text, request.threshold)
+        return PredictionResponse(
+            text=result.text,
+            label=result.label,
+            confidence=result.confidence,
+            probabilities=result.to_dict()["probabilities"],
+            features=result.features,
+            explanation=result.explanation,
+        )
+    except Exception as e:
+        logger.error(f"Analysis error: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Analysis failed: {str(e)}",
         )
 
 

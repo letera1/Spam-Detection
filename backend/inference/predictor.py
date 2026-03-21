@@ -62,15 +62,16 @@ class PredictionResult:
 
 class SpamPredictor:
     """
-    High-level predictor for spam detection.
+    Advanced predictor for spam detection with detailed analysis.
 
     Handles model loading, preprocessing, and prediction
     with a clean inference API.
 
-    Example:
-        predictor = SpamPredictor()
-        result = predictor.predict("Win a free iPhone now!")
-        print(result.label)  # 'spam'
+    Features:
+    - Single and batch prediction
+    - Spam feature extraction
+    - Prediction explanations
+    - Confidence scoring
     """
 
     def __init__(self, model_path: Optional[Union[str, Path]] = None):
@@ -83,6 +84,7 @@ class SpamPredictor:
         self.model_path = model_path
         self.pipeline = None
         self._is_loaded = False
+        self._preprocessor = None
 
     def load(self, model_path: Optional[Union[str, Path]] = None) -> "SpamPredictor":
         """
@@ -116,9 +118,94 @@ class SpamPredictor:
         logger.info(f"Loading model from: {path}")
         self.pipeline = joblib.load(path)
         self._is_loaded = True
-        logger.info("Model loaded successfully")
 
+        # Try to get preprocessor from pipeline
+        for name, step in self.pipeline.steps:
+            if "preprocessor" in name:
+                self._preprocessor = step.preprocessor
+                break
+
+        logger.info("Model loaded successfully")
         return self
+
+    def _generate_explanation(
+        self, text: str, features: Optional[Dict[str, Any]], spam_prob: float
+    ) -> str:
+        """Generate human-readable explanation for prediction."""
+        reasons = []
+
+        if features:
+            if features.get("has_urls"):
+                reasons.append("contains URLs")
+            if features.get("has_emails"):
+                reasons.append("contains email addresses")
+            if features.get("has_phone"):
+                reasons.append("contains phone numbers")
+            if features.get("has_money_symbols"):
+                reasons.append("mentions money/prizes")
+            if features.get("has_suspicious_words"):
+                reasons.append(f"contains {features.get('suspicious_word_count', 0)} spam-indicative words")
+            if features.get("has_excessive_punctuation"):
+                reasons.append("uses excessive punctuation")
+            if features.get("has_all_caps"):
+                reasons.append("uses all caps (shouting)")
+            if features.get("emoji_count", 0) > 3:
+                reasons.append("uses many emojis")
+
+        if spam_prob > 0.8:
+            confidence_level = "very high"
+        elif spam_prob > 0.6:
+            confidence_level = "high"
+        elif spam_prob > 0.4:
+            confidence_level = "moderate"
+        else:
+            confidence_level = "low"
+
+        if reasons:
+            explanation = f"Classified as {'spam' if spam_prob >= 0.5 else 'ham'} with {confidence_level} confidence. "
+            explanation += f"Message {', '.join(reasons[:3])}."
+        else:
+            explanation = f"Classified as {'spam' if spam_prob >= 0.5 else 'ham'} with {confidence_level} confidence. No strong spam indicators detected."
+
+        return explanation
+
+    def analyze(self, text: str, threshold: float = 0.5) -> PredictionResult:
+        """
+        Analyze a message with detailed feature extraction and explanation.
+
+        Args:
+            text: The message text to classify
+            threshold: Probability threshold for spam classification
+
+        Returns:
+            PredictionResult with label, confidence, features, and explanation
+        """
+        if not self._is_loaded:
+            self.load()
+
+        # Get preprocessed text and features if preprocessor available
+        features = None
+        if self._preprocessor and hasattr(self._preprocessor, 'extract_features'):
+            _, features = self._preprocessor.preprocess(text, return_features=True)
+            features = features.to_dict()
+
+        # Get prediction
+        probs = self.pipeline.predict_proba([text])[0]
+        pred_idx = 1 if probs[1] >= threshold else 0
+        label = LABEL_INV_MAP[pred_idx]
+        confidence = probs[pred_idx]
+
+        # Generate explanation
+        explanation = self._generate_explanation(text, features, probs[1])
+
+        return PredictionResult(
+            text=text,
+            label=label,
+            confidence=confidence,
+            probabilities=probs,
+            features=features,
+            explanation=explanation,
+        )
 
     def predict(self, text: str, threshold: float = 0.5) -> PredictionResult:
         """
