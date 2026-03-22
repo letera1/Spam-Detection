@@ -35,3 +35,6 @@
 2026-03-22 14:03:36 - backend.inference.predictor - INFO - Loading model from: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\models\logistic_regression_spam_pipeline.joblib
 2026-03-22 14:03:36 - backend.inference.predictor - INFO - Model loaded successfully
 2026-03-22 14:03:36 - backend.api.app - INFO - Model loaded successfully
+2026-03-22 14:06:57 - backend.data.loader - INFO - Loading SMS Spam Collection from: None
+2026-03-22 14:06:57 - backend.data.loader - INFO - Loading from local file: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\data\raw\sms_spam.csv
+2026-03-22 14:06:57 - backend.data.loader - INFO - Train/test split: 618 train, 155 test
