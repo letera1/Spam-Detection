@@ -131,7 +131,11 @@ Examples:
     elif args.command == "interactive":
         interactive_predict()
     else:
-        parser.print_help()
+        print("\n\033[1;36m" + "="*50)
+        print(" 🛡️  Welcome to the Advanced Spam Detection Engine  🛡️")
+        print("="*50 + "\033[0m")
+        print("No command provided. Auto-starting API server for convenience...\n")
+        start_api("0.0.0.0", 8000)
 
 
 if __name__ == "__main__":
