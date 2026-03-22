@@ -127,11 +127,11 @@ export default function Home() {
               <Shield className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                Spam Detector
+              <h1 className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 tracking-tight">
+                NexusML SpamGuard
               </h1>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                AI-Powered Message Analysis
+              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 tracking-widest uppercase mt-0.5">
+                Next-Gen AI Analysis Engine
               </p>
             </div>
           </div>
