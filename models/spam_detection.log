@@ -72,3 +72,9 @@ weighted avg       0.97      0.97      0.97       155
 2026-03-21 23:33:42 - backend.models.evaluator - INFO - ============================================================
 2026-03-21 23:33:42 - backend.models.pipeline - INFO - Pipeline saved to: c:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\models\logistic_regression_spam_pipeline.joblib
 2026-03-21 23:33:42 - __main__ - INFO - Model saved to: c:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\models\logistic_regression_spam_pipeline.joblib
+2026-03-22 13:08:01 - __main__ - INFO - Starting API server on 0.0.0.0:8000
+2026-03-22 13:08:01 - __main__ - INFO - API Docs: http://0.0.0.0:8000/docs
+2026-03-22 13:08:02 - backend.api.app - INFO - Starting Spam Detection API...
+2026-03-22 13:08:02 - backend.inference.predictor - INFO - Loading model from: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\models\logistic_regression_spam_pipeline.joblib
+2026-03-22 13:08:02 - backend.inference.predictor - INFO - Model loaded successfully
+2026-03-22 13:08:02 - backend.api.app - INFO - Model loaded successfully
