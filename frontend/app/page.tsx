@@ -203,38 +203,45 @@ export default function Home() {
         {activeTab === "analyze" && (
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Input Card */}
-            <Card>
+<Card className="backdrop-blur-md bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-cyan-500/30 shadow-[0_4px_20px_rgba(0,255,255,0.05)]">
               <CardHeader>
-                <CardTitle>Message Input</CardTitle>
-                <CardDescription>
-                  Enter the message you want to analyze for spam detection
+                <CardTitle className="font-mono flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-cyan-500 animate-pulse"></span>
+                  INPUT_DATA_STREAM
+                </CardTitle>
+                <CardDescription className="dark:text-cyan-600/70 font-mono text-xs">
+                  Awaiting payload for heuristic analysis
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <textarea
-                  value={inputText}
-                  onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Enter message text here..."
-                  className="w-full h-40 p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
-                />
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                  <textarea
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder="Provide string payload..."
+                    className="relative w-full h-40 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-cyan-500 dark:border-cyan-500/30 dark:bg-black/80 dark:text-cyan-50 font-mono text-sm shadow-inner transition-all"
+                  />
+                </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {inputText.length} characters
+                  <span className="text-xs font-mono text-gray-500 dark:text-cyan-600/70">
+                    BYTES: {inputText.length}
                   </span>
                   <Button
                     onClick={handleAnalyze}
                     disabled={loading || !inputText.trim()}
-                    className="gap-2"
+                    className="gap-2 bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:hover:bg-cyan-500 dark:text-black font-bold relative overflow-hidden group"
                   >
                     {loading ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Analyzing...
+                        PROCESSING...
                       </>
                     ) : (
                       <>
+                        <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
                         <Send className="h-4 w-4" />
-                        Analyze
+                        INITIATE_SCAN
                       </>
                     )}
                   </Button>
@@ -262,20 +269,27 @@ export default function Home() {
             </Card>
 
             {/* Result Card */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Analysis Result</CardTitle>
-                <CardDescription>
-                  AI-powered spam detection results
+            <Card className="backdrop-blur-md bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-cyan-500/30 shadow-[0_4px_20px_rgba(0,255,255,0.05)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                <Shield className="h-48 w-48 text-cyan-500" />
+              </div>
+              <CardHeader className="relative z-10">
+                <CardTitle className="font-mono flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 text-cyan-500" />
+                  DIAGNOSTIC_OUTPUT
+                </CardTitle>
+                <CardDescription className="dark:text-cyan-600/70 font-mono text-xs">
+                  Real-time telemetry and classification results
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="relative z-10">
                 {!result ? (
-                  <div className="h-64 flex items-center justify-center text-gray-400 dark:text-gray-500">
-                    <div className="text-center">
-                      <Shield className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                      <p>Enter a message and click Analyze to see results</p>
+                  <div className="h-64 flex flex-col items-center justify-center text-gray-400 dark:text-cyan-600/50 font-mono">
+                    <div className="relative">
+                      <Shield className="h-16 w-16 mx-auto mb-4 opacity-20" />
+                      <div className="absolute inset-0 border border-cyan-500/20 rounded-full animate-[ping_3s_infinite] opacity-0 dark:opacity-100"></div>
                     </div>
+                    <p className="tracking-widest text-xs">&gt; AWAITING_INPUT_STREAM...</p>
                   </div>
                 ) : (
                   <div className="space-y-6">
