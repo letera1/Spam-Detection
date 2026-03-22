@@ -152,11 +152,12 @@ class SpamPredictor:
             if features.get("emoji_count", 0) > 3:
                 reasons.append("uses many emojis")
 
-        if spam_prob > 0.8:
+        confidence = max(spam_prob, 1.0 - spam_prob)
+        if confidence > 0.9:
             confidence_level = "very high"
-        elif spam_prob > 0.6:
+        elif confidence > 0.8:
             confidence_level = "high"
-        elif spam_prob > 0.4:
+        elif confidence > 0.6:
             confidence_level = "moderate"
         else:
             confidence_level = "low"
