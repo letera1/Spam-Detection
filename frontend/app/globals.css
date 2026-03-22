@@ -67,3 +67,47 @@ html.dark ::-webkit-scrollbar-thumb {
 html.dark ::-webkit-scrollbar-thumb:hover {
   background: #666;
 }
+
+.bg-grid-cyber {
+  background-image: 
+    linear-gradient(to right, rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0)
+  );
+  height: 20%;
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+}
+
+html.dark .scanline::after {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 255, 255, 0),
+    rgba(0, 255, 255, 0.3) 50%,
+    rgba(0, 255, 255, 0)
+  );
+}
+
+@keyframes scan {
+  0% { top: -20%; }
+  100% { top: 120%; }
+}

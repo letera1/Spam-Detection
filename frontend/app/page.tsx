@@ -118,22 +118,25 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-600 rounded-lg">
-              <Shield className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 tracking-tight">
-                NexusML SpamGuard
-              </h1>
-              <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 tracking-widest uppercase mt-0.5">
-                Next-Gen AI Analysis Engine
-              </p>
-            </div>
+    <div className="min-h-screen relative bg-slate-50 dark:bg-black text-slate-900 dark:text-cyan-50">
+      <div className="absolute inset-0 z-0 bg-grid-cyber opacity-40 pointer-events-none"></div>
+      <div className="absolute inset-0 z-0 scanline pointer-events-none"></div>
+      <div className="relative z-10 flex flex-col min-h-screen">
+        {/* Header */}
+        <header className="sticky top-0 z-50 w-full border-b border-cyan-500/20 bg-white/80 dark:bg-black/80 backdrop-blur">
+          <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="p-2.5 bg-blue-600/10 dark:bg-cyan-900/40 rounded-xl border border-blue-500/30 dark:border-cyan-500/50 shadow-[0_0_15px_rgba(0,255,255,0.2)]">
+                <Shield className="h-7 w-7 text-blue-600 dark:text-cyan-400" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-purple-700 dark:from-cyan-400 dark:to-blue-500 tracking-tighter drop-shadow-sm">
+                  NexusML SpamGuard
+                </h1>
+                <p className="text-xs font-bold text-gray-500 dark:text-cyan-600/80 tracking-[0.2em] uppercase mt-1">
+                  Threat Detection Protocol V2
+                </p>
+              </div>
           </div>
 
           <div className="flex items-center gap-2">
@@ -567,11 +570,12 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-800 mt-12">
-        <div className="container mx-auto px-4 py-6 text-center text-sm text-gray-500 dark:text-gray-400">
-          <p>AI-Powered Spam Detection System • Built with Next.js & FastAPI</p>
+      <footer className="border-t border-cyan-500/20 mt-auto bg-black/40 backdrop-blur">
+        <div className="container mx-auto px-4 py-6 text-center text-xs font-mono text-gray-500 dark:text-cyan-600/70">
+          <p>NEXUS-ML // THREAT INTELLIGENCE SYSTEMS // SECURE CONNECTION ESTABLISHED</p>
         </div>
       </footer>
+      </div>
     </div>
   );
 }
