@@ -78,3 +78,160 @@ weighted avg       0.97      0.97      0.97       155
 2026-03-22 13:08:02 - backend.inference.predictor - INFO - Loading model from: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\models\logistic_regression_spam_pipeline.joblib
 2026-03-22 13:08:02 - backend.inference.predictor - INFO - Model loaded successfully
 2026-03-22 13:08:02 - backend.api.app - INFO - Model loaded successfully
+2026-03-22 13:13:32 - __main__ - INFO - Full training mode - comparing all models...
+2026-03-22 13:13:32 - backend.data.loader - INFO - Loading SMS Spam Collection from: None
+2026-03-22 13:13:32 - backend.data.loader - INFO - Loading from local file: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\backend\data\sms_spam.csv
+2026-03-22 13:13:32 - backend.data.loader - WARNING - Found 178 duplicate messages
+2026-03-22 13:13:32 - backend.data.loader - INFO - Data validation passed
+2026-03-22 13:13:32 - backend.data.loader - INFO - Train/test split: 618 train, 155 test
+2026-03-22 13:13:32 - backend.models.trainer - INFO - 
+============================================================
+2026-03-22 13:13:32 - backend.models.trainer - INFO - Training: naive_bayes + count
+2026-03-22 13:13:32 - backend.models.trainer - INFO - ============================================================
+2026-03-22 13:13:32 - backend.models.pipeline - INFO - Built pipeline with 2 steps
+2026-03-22 13:13:32 - backend.models.pipeline - INFO - Training naive_bayes with count vectorizer
+2026-03-22 13:13:32 - backend.models.pipeline - INFO - Performing grid search with 5-fold CV
+2026-03-22 13:13:34 - backend.models.pipeline - INFO - Best parameters: {'classifier__alpha': 0.5, 'classifier__fit_prior': True}
+2026-03-22 13:13:34 - backend.models.pipeline - INFO - Best CV F1 score: 0.9858
+2026-03-22 13:13:34 - backend.models.pipeline - INFO - Training complete. Train F1: 0.9949
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - 
+============================================================
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - EVALUATION RESULTS
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - ============================================================
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - Accuracy:  0.9677
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - Precision: 0.9673
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - Recall:    1.0000
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - F1 Score:  0.9834
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - 
+Confusion Matrix:
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - [[  2   5]
+ [  0 148]]
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - 
+Classification Report:
+2026-03-22 13:13:34 - backend.models.evaluator - INFO -               precision    recall  f1-score   support
+
+         ham       1.00      0.29      0.44         7
+        spam       0.97      1.00      0.98       148
+
+    accuracy                           0.97       155
+   macro avg       0.98      0.64      0.71       155
+weighted avg       0.97      0.97      0.96       155
+
+2026-03-22 13:13:34 - backend.models.evaluator - INFO - ============================================================
+2026-03-22 13:13:34 - backend.models.trainer - INFO - 
+============================================================
+2026-03-22 13:13:34 - backend.models.trainer - INFO - Training: logistic_regression + count
+2026-03-22 13:13:34 - backend.models.trainer - INFO - ============================================================
+2026-03-22 13:13:34 - backend.models.pipeline - INFO - Built pipeline with 2 steps
+2026-03-22 13:13:34 - backend.models.pipeline - INFO - Training logistic_regression with count vectorizer
+2026-03-22 13:13:34 - backend.models.pipeline - INFO - Performing grid search with 5-fold CV
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Best parameters: {'classifier__C': 10.0, 'classifier__max_iter': 500, 'classifier__solver': 'lbfgs'}
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Best CV F1 score: 0.9824
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Training complete. Train F1: 0.9983
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - 
+============================================================
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - EVALUATION RESULTS
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - ============================================================
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - Accuracy:  0.9677
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - Precision: 0.9735
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - Recall:    0.9932
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - F1 Score:  0.9833
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - 
+Confusion Matrix:
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - [[  3   4]
+ [  1 147]]
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - 
+Classification Report:
+2026-03-22 13:13:35 - backend.models.evaluator - INFO -               precision    recall  f1-score   support
+
+         ham       0.75      0.43      0.55         7
+        spam       0.97      0.99      0.98       148
+
+    accuracy                           0.97       155
+   macro avg       0.86      0.71      0.76       155
+weighted avg       0.96      0.97      0.96       155
+
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - ============================================================
+2026-03-22 13:13:35 - backend.models.trainer - INFO - 
+============================================================
+2026-03-22 13:13:35 - backend.models.trainer - INFO - Training: naive_bayes + tfidf
+2026-03-22 13:13:35 - backend.models.trainer - INFO - ============================================================
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Built pipeline with 2 steps
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Training naive_bayes with tfidf vectorizer
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Performing grid search with 5-fold CV
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Best parameters: {'classifier__alpha': 0.1, 'classifier__fit_prior': True}
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Best CV F1 score: 0.9833
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Training complete. Train F1: 0.9958
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - 
+============================================================
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - EVALUATION RESULTS
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - ============================================================
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - Accuracy:  0.9677
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - Precision: 0.9673
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - Recall:    1.0000
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - F1 Score:  0.9834
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - 
+Confusion Matrix:
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - [[  2   5]
+ [  0 148]]
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - 
+Classification Report:
+2026-03-22 13:13:35 - backend.models.evaluator - INFO -               precision    recall  f1-score   support
+
+         ham       1.00      0.29      0.44         7
+        spam       0.97      1.00      0.98       148
+
+    accuracy                           0.97       155
+   macro avg       0.98      0.64      0.71       155
+weighted avg       0.97      0.97      0.96       155
+
+2026-03-22 13:13:35 - backend.models.evaluator - INFO - ============================================================
+2026-03-22 13:13:35 - backend.models.trainer - INFO - 
+============================================================
+2026-03-22 13:13:35 - backend.models.trainer - INFO - Training: logistic_regression + tfidf
+2026-03-22 13:13:35 - backend.models.trainer - INFO - ============================================================
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Built pipeline with 2 steps
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Training logistic_regression with tfidf vectorizer
+2026-03-22 13:13:35 - backend.models.pipeline - INFO - Performing grid search with 5-fold CV
+2026-03-22 13:13:36 - backend.models.pipeline - INFO - Best parameters: {'classifier__C': 100.0, 'classifier__max_iter': 500, 'classifier__solver': 'lbfgs'}
+2026-03-22 13:13:36 - backend.models.pipeline - INFO - Best CV F1 score: 0.9857
+2026-03-22 13:13:36 - backend.models.pipeline - INFO - Training complete. Train F1: 1.0000
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - 
+============================================================
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - EVALUATION RESULTS
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - ============================================================
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - Accuracy:  0.9742
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - Precision: 0.9737
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - Recall:    1.0000
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - F1 Score:  0.9867
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - 
+Confusion Matrix:
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - [[  3   4]
+ [  0 148]]
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - 
+Classification Report:
+2026-03-22 13:13:36 - backend.models.evaluator - INFO -               precision    recall  f1-score   support
+
+         ham       1.00      0.43      0.60         7
+        spam       0.97      1.00      0.99       148
+
+    accuracy                           0.97       155
+   macro avg       0.99      0.71      0.79       155
+weighted avg       0.97      0.97      0.97       155
+
+2026-03-22 13:13:36 - backend.models.evaluator - INFO - ============================================================
+2026-03-22 13:13:36 - backend.models.trainer - INFO - 
+================================================================================
+2026-03-22 13:13:36 - backend.models.trainer - INFO - MODEL COMPARISON SUMMARY
+2026-03-22 13:13:36 - backend.models.trainer - INFO - ================================================================================
+2026-03-22 13:13:36 - backend.models.trainer - INFO - Vectorizer               Model Test Accuracy Test Precision Test Recall Test F1 Train F1
+     tfidf logistic_regression        0.9742         0.9737      1.0000  0.9867   1.0000
+     count         naive_bayes        0.9677         0.9673      1.0000  0.9834   0.9949
+     tfidf         naive_bayes        0.9677         0.9673      1.0000  0.9834   0.9958
+     count logistic_regression        0.9677         0.9735      0.9932  0.9833   0.9983
+2026-03-22 13:13:36 - backend.models.trainer - INFO - ================================================================================
+2026-03-22 13:13:36 - backend.models.pipeline - INFO - Pipeline saved to: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\backend\models\logistic_regression_spam_pipeline.joblib
+2026-03-22 13:13:36 - backend.models.trainer - INFO - 
+Best model saved to: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\backend\models\logistic_regression_spam_pipeline.joblib
+2026-03-22 13:13:36 - __main__ - INFO - Best model: logistic_regression + tfidf
+2026-03-22 13:13:36 - __main__ - INFO - Test F1: 0.9867
