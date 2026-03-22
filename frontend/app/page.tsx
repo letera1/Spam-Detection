@@ -332,20 +332,20 @@ export default function Home() {
                     </div>
 
                     {/* Probabilities */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                          Ham Probability
+                    <div className="grid grid-cols-2 gap-4 font-mono">
+                      <div className="p-4 bg-green-50 dark:bg-green-950/40 rounded-lg border border-green-200 dark:border-green-500/30">
+                        <p className="text-[10px] text-gray-500 dark:text-green-500/70 mb-1 tracking-widest uppercase">
+                          SYS.HAM_PROBABILITY
                         </p>
-                        <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        <p className="text-3xl font-light text-green-600 dark:text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]">
                           {formatPercentage(result.probabilities.ham)}
                         </p>
                       </div>
-                      <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                          Spam Probability
+                      <div className="p-4 bg-red-50 dark:bg-red-950/40 rounded-lg border border-red-200 dark:border-red-500/30">
+                        <p className="text-[10px] text-gray-500 dark:text-red-500/70 mb-1 tracking-widest uppercase">
+                          SYS.SPAM_PROBABILITY
                         </p>
-                        <p className="text-2xl font-bold text-red-600 dark:text-red-400">
+                        <p className="text-3xl font-light text-red-600 dark:text-red-400 drop-shadow-[0_0_8px_rgba(248,113,113,0.5)]">
                           {formatPercentage(result.probabilities.spam)}
                         </p>
                       </div>
@@ -353,8 +353,9 @@ export default function Home() {
 
                     {/* Explanation */}
                     {result.explanation && (
-                      <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                        <p className="text-sm text-blue-800 dark:text-blue-200">
+                      <div className="p-4 bg-blue-50 dark:bg-cyan-950/20 border-l-4 border-blue-500 dark:border-cyan-500 rounded-lg">
+                        <p className="text-sm font-mono text-blue-800 dark:text-cyan-200">
+                          <span className="font-bold mr-2 text-blue-700 dark:text-cyan-400">LOG:</span> 
                           {result.explanation}
                         </p>
                       </div>
@@ -362,9 +363,9 @@ export default function Home() {
 
                     {/* Features */}
                     {result.features && (
-                      <div className="space-y-2">
-                        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          Detected Features
+                      <div className="space-y-3 pt-2 border-t border-gray-200 dark:border-cyan-500/20">
+                        <h4 className="text-xs font-mono text-gray-700 dark:text-cyan-500/70 tracking-widest uppercase">
+                          Detected_Payload_Signatures
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {result.features.has_urls && (
@@ -407,12 +408,15 @@ export default function Home() {
 
         {/* History Tab */}
         {activeTab === "history" && (
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
+          <Card className="backdrop-blur-md bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-cyan-500/30 shadow-[0_4px_20px_rgba(0,255,255,0.05)]">
+            <CardHeader className="flex flex-row items-center justify-between border-b border-gray-200 dark:border-cyan-500/20 pb-4">
               <div>
-                <CardTitle>Analysis History</CardTitle>
-                <CardDescription>
-                  Your recent spam detection analyses
+                <CardTitle className="font-mono flex items-center gap-2">
+                  <span className="h-2 w-2 bg-yellow-500 rounded-sm"></span>
+                  SYSTEM_LOGS
+                </CardTitle>
+                <CardDescription className="dark:text-cyan-600/70 font-mono text-xs">
+                  Historical chronologies of intercepted messages
                 </CardDescription>
               </div>
               {history.length > 0 && (
@@ -420,45 +424,46 @@ export default function Home() {
                   variant="outline"
                   size="sm"
                   onClick={clearHistory}
-                  className="gap-2"
+                  className="gap-2 dark:border-red-500/30 dark:text-red-400 dark:hover:bg-red-500/10 font-mono text-xs"
                 >
                   <Trash2 className="h-4 w-4" />
-                  Clear
+                  PURGE_LOGS
                 </Button>
               )}
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-6">
               {history.length === 0 ? (
-                <div className="text-center py-12 text-gray-400 dark:text-gray-500">
-                  <History className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                  <p>No analysis history yet</p>
+                <div className="text-center py-12 text-gray-400 dark:text-cyan-600/40 font-mono">
+                  <History className="h-16 w-16 mx-auto mb-4 opacity-30" />
+                  <p className="tracking-widest text-sm">NO_DATA_FOUND</p>
                 </div>
               ) : (
-                <div className="space-y-3 max-h-[600px] overflow-y-auto">
+                <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
                   {history.map((item) => (
                     <div
                       key={item.id}
-                      className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+                      className="p-4 border border-gray-200 dark:border-cyan-500/20 rounded-lg hover:bg-gray-50 dark:hover:bg-cyan-900/10 transition-colors bg-white/50 dark:bg-black/50 backdrop-blur-sm"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm text-gray-900 dark:text-white truncate mb-2">
+                          <p className="text-sm font-mono text-gray-900 dark:text-gray-300 truncate mb-2">
+                            <span className="text-cyan-600 dark:text-cyan-500 mr-2 opacity-50">&gt;</span>
                             {item.text}
                           </p>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-3">
                             <Badge
                               className={cn(
-                                "text-xs",
+                                "text-[10px] font-mono",
                                 getLabelColor(item.label)
                               )}
                             >
                               {item.label}
                             </Badge>
-                            <span className="text-xs text-gray-500 dark:text-gray-400">
-                              {formatPercentage(item.confidence)}
+                            <span className="text-[10px] font-mono text-gray-500 dark:text-cyan-600/70 border-l border-gray-300 dark:border-cyan-800 pl-3">
+                              CONF: {formatPercentage(item.confidence)}
                             </span>
-                            <span className="text-xs text-gray-400 dark:text-gray-500">
-                              {new Date(item.timestamp).toLocaleString()}
+                            <span className="text-[10px] font-mono text-gray-400 dark:text-cyan-600/50 border-l border-gray-300 dark:border-cyan-800 pl-3">
+                              {new Date(item.timestamp).toISOString()}
                             </span>
                           </div>
                         </div>
