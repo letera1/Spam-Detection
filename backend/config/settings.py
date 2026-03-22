@@ -18,10 +18,12 @@ BACKEND_DIR = PROJECT_ROOT / "backend"
 MODELS_DIR = PROJECT_ROOT / "models"
 RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
 DATA_DIR = RAW_DATA_DIR # Default fallback for data loaders
+LOGS_DIR = PROJECT_ROOT / "logs"
 
 # Ensure directories exist
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 DATA_DIR.mkdir(parents=True, exist_ok=True)
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # =============================================================================

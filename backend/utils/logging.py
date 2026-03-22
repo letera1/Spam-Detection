@@ -9,8 +9,7 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-from ..config.settings import MODELS_DIR
-
+from ..config.settings import LOGS_DIR
 
 def get_logger(
     name: str,
@@ -45,8 +44,8 @@ def get_logger(
     logger.addHandler(console_handler)
 
     # File handler (optional)
-    if log_to_file and MODELS_DIR.exists():
-        log_file = MODELS_DIR / "spam_detection.log"
+    if log_to_file and LOGS_DIR.exists():
+        log_file = LOGS_DIR / "spam_detection.log"
         file_handler = logging.FileHandler(log_file)
         file_handler.setLevel(level)
         file_handler.setFormatter(console_format)
@@ -64,6 +63,6 @@ def set_log_level(level: int):
 
 def get_log_file_path() -> Optional[Path]:
     """Get the path to the log file."""
-    if MODELS_DIR.exists():
-        return MODELS_DIR / "spam_detection.log"
+    if LOGS_DIR.exists():
+        return LOGS_DIR / "spam_detection.log"
     return None
