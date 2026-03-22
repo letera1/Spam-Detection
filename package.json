@@ -1,0 +1,9 @@
+{
+  "name": "spam-detection-system",
+  "version": "1.0.0",
+  "scripts": {
+    "start:backend": "cd backend && python main.py api",
+    "start:frontend": "cd frontend && npm run dev",
+    "dev": "npm i concurrently -D && concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  }
+}
