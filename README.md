@@ -1,120 +1,97 @@
-# Advanced Spam Detection System
+# 🛡️ Advanced Spam Detection System
 
-A modern, AI-powered spam detection system with a sleek web interface and advanced ML capabilities.
+> **A modern, AI-powered spam detection system with a sleek web interface and advanced machine learning capabilities.**
 
-## Features
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-### Backend (FastAPI + ML)
-- **Advanced NLP Preprocessing**
-  - URL, email, and phone number detection
-  - Emoji and emoticon processing
-  - Social media pattern handling (mentions, hashtags)
-  - Spam-specific feature extraction
-  - Stopword removal, stemming, and lemmatization
+---
 
-- **Machine Learning Models**
-  - Multiple model support (Naive Bayes, Logistic Regression)
-  - TF-IDF and Count vectorization
-  - Hyperparameter tuning with grid search
-  - Model comparison and selection
+## ✨ Features
 
-- **REST API Endpoints**
-  - `/analyze` - Detailed message analysis with explanations
-  - `/predict` - Quick spam/ham classification
-  - `/analyze/batch` - Batch message analysis
-  - `/upload/file` - CSV/TXT file upload for bulk analysis
-  - `/health` - Model and API health check
-  - `/docs` - Interactive API documentation
+### 🧠 Backend (FastAPI + ML)
 
-### Frontend (Next.js 14 + Tailwind CSS v4)
-- **Modern UI Components**
-  - Real-time spam analysis
-  - Detailed feature extraction display
-  - Prediction explanations
-  - Analysis history with localStorage persistence
-  - Statistics dashboard
-  - Dark/Light mode toggle
-  - Responsive design
+| Feature | Description |
+|---------|-------------|
+| **Advanced NLP Preprocessing** | URL, email, phone detection • Emoji processing • Social media patterns • Spam-specific feature extraction |
+| **Machine Learning Models** | Naive Bayes • Logistic Regression • TF-IDF & Count vectorization • Hyperparameter tuning |
+| **REST API Endpoints** | `/analyze` • `/predict` • `/batch` • `/upload` • `/health` • Interactive docs |
 
-- **User Features**
-  - Instant spam/ham classification
-  - Confidence scoring
-  - Probability breakdown
-  - Detected spam indicators
-  - Historical analysis tracking
-  - Visual statistics and charts
+### 🎨 Frontend (Next.js 14 + Tailwind CSS v4)
 
-## Quick Start
+| Feature | Description |
+|---------|-------------|
+| **Modern UI** | Real-time analysis • Detailed feature display • Prediction explanations • Dark/Light mode |
+| **Analytics** | Confidence scoring • Probability breakdown • History tracking • Visual statistics & charts |
+| **Responsive** | Mobile-first design • Cross-browser compatible • Accessible components |
+
+---
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.9+
-- Node.js 18+
-- npm or yarn
+
+```bash
+Python 3.9+    # Backend
+Node.js 18+    # Frontend
+npm or yarn    # Package manager
+```
 
 ### Backend Setup
 
-1. Navigate to the backend directory:
 ```bash
+# 1. Navigate to backend
 cd backend
-```
 
-2. Install dependencies:
-```bash
+# 2. Install dependencies
 pip install -r requirements.txt
-```
 
-3. Train the model:
-```bash
-python main.py train
-```
+# 3. Train the model
+python main.py train           # Full training
+python main.py train --quick   # Quick training (single model)
 
-For quick training (single best model):
-```bash
-python main.py train --quick
-```
-
-4. Start the API server:
-```bash
+# 4. Start the API server
 python main.py api
 ```
 
-The API will be available at `http://localhost:8000`
-API documentation at `http://localhost:8000/docs`
+> 📍 **API available at:** `http://localhost:8000`  
+> 📚 **Docs available at:** `http://localhost:8000/docs`
 
 ### Frontend Setup
 
-1. Navigate to the frontend directory:
 ```bash
+# 1. Navigate to frontend
 cd frontend
-```
 
-2. Install dependencies:
-```bash
+# 2. Install dependencies
 npm install
-```
 
-3. Start the development server:
-```bash
+# 3. Start development server
 npm run dev
 ```
 
-The frontend will be available at `http://localhost:3000`
+> 🌐 **Frontend available at:** `http://localhost:3000`
 
-## Usage
+---
+
+## 💻 Usage
 
 ### Web Interface
 
-1. Open your browser and navigate to `http://localhost:3000`
+1. Navigate to `http://localhost:3000`
 2. Enter a message in the text area
-3. Click "Analyze" to get spam detection results
-4. View detailed analysis including:
-   - Spam/Ham classification
-   - Confidence score
-   - Probability breakdown
-   - Detected spam indicators
-   - Human-readable explanation
+3. Click **"Analyze"** for spam detection results
+4. View detailed analysis:
+   - 🎯 Spam/Ham classification
+   - 📊 Confidence score
+   - 📈 Probability breakdown
+   - 🔍 Detected spam indicators
+   - 💡 Human-readable explanation
 
-### API Usage
+### API Examples
 
 #### Single Message Analysis
 ```bash
@@ -138,64 +115,64 @@ curl -X POST "http://localhost:8000/upload/file" \
   -F "include_features=true"
 ```
 
-### CLI Usage
+### CLI Commands
 
 ```bash
-# Train all models and compare
-python main.py train
-
-# Quick training (single model)
-python main.py train --quick
-
-# Predict single message
-python main.py predict "Your message here"
-
-# Start API server
-python main.py api
-
-# Interactive mode
-python main.py interactive
+python main.py train           # Train all models and compare
+python main.py train --quick   # Quick training (single model)
+python main.py predict "msg"   # Predict single message
+python main.py api             # Start API server
+python main.py interactive     # Interactive mode
 ```
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 ```
 Spam-Detection/
-├── backend/
-│   ├── api/           # FastAPI endpoints
-│   ├── config/        # Configuration and settings
-│   ├── data/          # Data loading and preprocessing
-│   ├── inference/     # Prediction and analysis
-│   ├── models/        # ML model training and evaluation
-│   ├── utils/         # Utility functions
-│   └── main.py        # CLI entry point
-├── frontend/
-│   ├── app/           # Next.js app router pages
-│   ├── components/    # React components
-│   ├── lib/           # Utilities and API client
-│   └── public/        # Static assets
-└── models/            # Trained model files (auto-created)
+├── 📂 backend/
+│   ├── 📂 api/              # FastAPI endpoints
+│   ├── 📂 config/           # Configuration and settings
+│   ├── 📂 data/             # Data loading and preprocessing
+│   ├── 📂 inference/        # Prediction and analysis
+│   ├── 📂 models/           # ML model training and evaluation
+│   ├── 📂 utils/            # Utility functions
+│   └── 📄 main.py           # CLI entry point
+├── 📂 frontend/
+│   ├── 📂 app/              # Next.js app router pages
+│   ├── 📂 components/       # React components
+│   ├── 📂 lib/              # Utilities and API client
+│   └── 📂 public/           # Static assets
+├── 📂 models/               # Trained model files (auto-created)
+└── 📄 README.md             # You are here!
 ```
 
-## Advanced Features
+---
+
+## 🔬 Advanced Features
 
 ### Spam Feature Extraction
-The system detects various spam indicators:
-- URLs and shortened links
-- Email addresses
-- Phone numbers
-- Money/currency symbols
-- Excessive punctuation
-- All-caps words (shouting)
-- Suspicious keywords
-- Emoji usage patterns
 
-### Model Training Options
+The system detects various spam indicators:
+
+| Indicator | Description |
+|-----------|-------------|
+| 🔗 URLs | Shortened links, suspicious domains |
+| 📧 Email Addresses | Potential phishing attempts |
+| 📞 Phone Numbers | Contact info in spam messages |
+| 💰 Currency Symbols | Money-related spam keywords |
+| ❗ Excessive Punctuation | Multiple exclamation/question marks |
+| 🔠 All-Caps Words | Shouting patterns |
+| ⚠️ Suspicious Keywords | "Win", "Free", "Claim", "Urgent" |
+| 😊 Emoji Patterns | Emotional manipulation tactics |
+
+### Custom Training
 
 ```python
-# Custom training with specific model
 from backend.models.trainer import train_model
 
+# Train with custom configuration
 pipeline = train_model(
     vectorizer_type="tfidf",
     model_type="logistic_regression"
@@ -219,84 +196,102 @@ preprocessor = TextPreprocessor(
 )
 ```
 
-## API Documentation
+---
 
-Interactive API documentation is available at:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
-
-## Configuration
+## ⚙️ Configuration
 
 ### Backend Settings
-Edit `backend/config/settings.py` to customize:
-- Model hyperparameters
-- Vectorizer settings
-- Preprocessing options
-- Training configuration
+
+Edit `backend/config/settings.py`:
+
+| Setting | Description |
+|---------|-------------|
+| `MODEL_HYPERPARAMETERS` | Model-specific parameters |
+| `VECTORIZER_SETTINGS` | TF-IDF / Count vectorizer config |
+| `PREPROCESSING_OPTIONS` | NLP pipeline configuration |
+| `TRAINING_CONFIG` | Training strategy settings |
 
 ### Frontend Settings
-Edit `frontend/.env.local`:
+
+Create `frontend/.env.local`:
+
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
-## Testing
+---
 
-### Backend Tests
+## 🧪 Testing
+
 ```bash
+# Backend tests
 pytest backend/tests
-```
 
-### Frontend Tests
-```bash
+# Frontend tests
 npm test
 ```
 
-## Performance
+---
 
-The system is optimized for:
-- Fast inference (< 100ms per message)
-- Batch processing (up to 1000 messages)
-- Low memory footprint
-- Scalable API design
+## ⚡ Performance
 
-## Troubleshooting
+| Metric | Target |
+|--------|--------|
+| Inference Time | < 100ms per message |
+| Batch Processing | Up to 1000 messages |
+| Memory Footprint | Optimized for low usage |
+| API Design | Scalable & async-ready |
 
-### Model Not Found
-```bash
-# Train a model first
-python main.py train
-```
+---
 
-### API Connection Error
-```bash
-# Ensure the API server is running
-python main.py api
+## 🔧 Troubleshooting
 
-# Check frontend .env.local
-NEXT_PUBLIC_API_URL=http://localhost:8000
-```
+| Issue | Solution |
+|-------|----------|
+| **Model Not Found** | Run `python main.py train` first |
+| **API Connection Error** | Ensure API server is running • Check `.env.local` |
+| **NLTK Data Missing** | Run `nltk.download('punkt_tab')`, `nltk.download('stopwords')`, `nltk.download('wordnet')` |
+| **Port 8000 in Use** | Kill existing process or use `--port` flag |
 
-### NLTK Data Download
-```python
-import nltk
-nltk.download('punkt_tab')
-nltk.download('stopwords')
-nltk.download('wordnet')
-```
+---
 
-## License
+## 📚 API Documentation
 
-MIT License - See LICENSE file for details.
+| Interface | URL |
+|-----------|-----|
+| Swagger UI | `http://localhost:8000/docs` |
+| ReDoc | `http://localhost:8000/redoc` |
 
-## Contributing
+---
+
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Acknowledgments
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-- SMS Spam Collection Dataset (UCI)
-- scikit-learn
-- FastAPI
-- Next.js
-- Tailwind CSS
+---
+
+## 📄 License
+
+MIT License - See [LICENSE](LICENSE) file for details.
+
+---
+
+## 🙏 Acknowledgments
+
+- 📊 **SMS Spam Collection Dataset** - UCI Machine Learning Repository
+- 🤖 **scikit-learn** - Machine Learning library
+- ⚡ **FastAPI** - Modern Python web framework
+- ⚛️ **Next.js** - React framework
+- 🎨 **Tailwind CSS** - Utility-first CSS framework
+
+---
+
+<p align="center">
+  <strong>Built with ❤️ for a spam-free world</strong>
+</p>
