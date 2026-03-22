@@ -551,33 +551,33 @@ export default function Home() {
                     <p className="tracking-widest text-sm">INSUFFICIENT_DATA</p>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="space-y-6 font-mono">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          Spam
+                        <span className="text-xs tracking-widest text-red-500 uppercase">
+                          MALICIOUS_PAYLOADS
                         </span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                        <span className="text-sm font-bold text-red-400 drop-shadow-[0_0_8px_rgba(248,113,113,0.5)]">
                           {stats.spamCount} ({stats.totalAnalyses > 0 ? formatPercentage(stats.spamCount / stats.totalAnalyses) : "0%"})
                         </span>
                       </div>
                       <Progress
-                        value={(stats.spamCount / stats.totalAnalyses) * 100}
-                        className="h-3"
+                        value={stats.totalAnalyses > 0 ? (stats.spamCount / stats.totalAnalyses) * 100 : 0}
+                        className="h-2 bg-red-950/40 [&>div]:bg-red-500 [&>div]:shadow-[0_0_10px_rgba(239,68,68,0.8)]"
                       />
                     </div>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          Ham
+                        <span className="text-xs tracking-widest text-green-500 uppercase">
+                          CLEAN_PAYLOADS
                         </span>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
+                        <span className="text-sm font-bold text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]">
                           {stats.hamCount} ({stats.totalAnalyses > 0 ? formatPercentage(stats.hamCount / stats.totalAnalyses) : "0%"})
                         </span>
                       </div>
                       <Progress
-                        value={(stats.hamCount / stats.totalAnalyses) * 100}
-                        className="h-3 bg-green-100 dark:bg-green-900/30"
+                        value={stats.totalAnalyses > 0 ? (stats.hamCount / stats.totalAnalyses) * 100 : 0}
+                        className="h-2 bg-green-950/40 [&>div]:bg-green-500 [&>div]:shadow-[0_0_10px_rgba(34,197,94,0.8)]"
                       />
                     </div>
                   </div>
