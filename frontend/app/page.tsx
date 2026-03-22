@@ -167,35 +167,35 @@ export default function Home() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Tab Navigation */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex gap-3 mb-6 relative z-10 w-fit p-1 bg-black/20 dark:bg-cyan-950/20 backdrop-blur-md rounded-lg border border-gray-200 dark:border-cyan-500/20">
           <Button
-            variant={activeTab === "analyze" ? "default" : "outline"}
+            variant={activeTab === "analyze" ? "default" : "ghost"}
             onClick={() => setActiveTab("analyze")}
-            className="gap-2"
+            className={cn("gap-2 font-mono text-xs tracking-widest", activeTab === "analyze" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
           >
             <ShieldCheck className="h-4 w-4" />
-            Analyze
+            ANALYZE_FEED
           </Button>
           <Button
-            variant={activeTab === "history" ? "default" : "outline"}
+            variant={activeTab === "history" ? "default" : "ghost"}
             onClick={() => setActiveTab("history")}
-            className="gap-2"
+            className={cn("gap-2 font-mono text-xs tracking-widest", activeTab === "history" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
           >
             <History className="h-4 w-4" />
-            History
+            SYS_LOGS
             {history.length > 0 && (
-              <Badge variant="secondary" className="ml-1">
+              <Badge variant="secondary" className="ml-1 bg-black/20 border-black/10">
                 {history.length}
               </Badge>
             )}
           </Button>
           <Button
-            variant={activeTab === "stats" ? "default" : "outline"}
+            variant={activeTab === "stats" ? "default" : "ghost"}
             onClick={() => setActiveTab("stats")}
-            className="gap-2"
+            className={cn("gap-2 font-mono text-xs tracking-widest", activeTab === "stats" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
           >
             <BarChart3 className="h-4 w-4" />
-            Statistics
+            METRICS
           </Button>
         </div>
 
@@ -481,51 +481,51 @@ export default function Home() {
           <div className="space-y-6">
             {/* Overview Cards */}
             <div className="grid gap-4 md:grid-cols-4">
-              <Card>
+              <Card className="backdrop-blur-md bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-blue-500/30">
                 <CardContent className="pt-6">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Total Analyses
+                  <div className="text-center font-mono">
+                    <p className="text-xs text-gray-500 dark:text-blue-500/70 tracking-widest uppercase">
+                      TOTAL_ANALYSES
                     </p>
-                    <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2">
+                    <p className="text-3xl font-light text-gray-900 dark:text-blue-400 mt-2 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">
                       {stats.totalAnalyses}
                     </p>
                   </div>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="backdrop-blur-md bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-red-500/30">
                 <CardContent className="pt-6">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Spam Detected
+                  <div className="text-center font-mono">
+                    <p className="text-xs text-gray-500 dark:text-red-500/70 tracking-widest uppercase">
+                      THREATS_DETECTED
                     </p>
-                    <p className="text-3xl font-bold text-red-600 dark:text-red-400 mt-2">
+                    <p className="text-3xl font-light text-red-600 dark:text-red-400 mt-2 drop-shadow-[0_0_8px_rgba(248,113,113,0.5)]">
                       {stats.spamCount}
                     </p>
                   </div>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="backdrop-blur-md bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-green-500/30">
                 <CardContent className="pt-6">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Ham Messages
+                  <div className="text-center font-mono">
+                    <p className="text-xs text-gray-500 dark:text-green-500/70 tracking-widest uppercase">
+                      SAFE_MESSAGES
                     </p>
-                    <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">
+                    <p className="text-3xl font-light text-green-600 dark:text-green-400 mt-2 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]">
                       {stats.hamCount}
                     </p>
                   </div>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="backdrop-blur-md bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-cyan-500/30">
                 <CardContent className="pt-6">
-                  <div className="text-center">
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      Avg Confidence
+                  <div className="text-center font-mono">
+                    <p className="text-xs text-gray-500 dark:text-cyan-500/70 tracking-widest uppercase">
+                      AVG_CONFIDENCE
                     </p>
                     <p
                       className={cn(
-                        "text-3xl font-bold mt-2",
+                        "text-3xl font-light mt-2 drop-shadow-md",
                         getConfidenceColor(stats.avgConfidence)
                       )}
                     >
@@ -537,18 +537,18 @@ export default function Home() {
             </div>
 
             {/* Spam vs Ham Chart */}
-            <Card>
+            <Card className="backdrop-blur-md bg-white/60 dark:bg-black/40 border border-slate-200 dark:border-purple-500/30">
               <CardHeader>
-                <CardTitle>Spam vs Ham Distribution</CardTitle>
-                <CardDescription>
-                  Breakdown of analyzed messages
+                <CardTitle className="font-mono text-purple-400">DISTRIBUTION_METRICS</CardTitle>
+                <CardDescription className="font-mono text-xs dark:text-purple-500/70">
+                  Global telemetry dataset visualization
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {stats.totalAnalyses === 0 ? (
-                  <div className="text-center py-12 text-gray-400 dark:text-gray-500">
+                  <div className="text-center py-12 text-gray-400 dark:text-purple-500/30 font-mono">
                     <BarChart3 className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                    <p>No data available yet</p>
+                    <p className="tracking-widest text-sm">INSUFFICIENT_DATA</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
