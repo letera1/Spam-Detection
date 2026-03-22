@@ -17,3 +17,10 @@
 2026-03-22 13:29:03 - backend.inference.predictor - INFO - Loading model from: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\models\logistic_regression_spam_pipeline.joblib
 2026-03-22 13:29:03 - backend.inference.predictor - INFO - Model loaded successfully
 2026-03-22 13:29:03 - backend.api.app - INFO - Model loaded successfully
+2026-03-22 13:50:34 - backend.api.app - INFO - Shutting down Spam Detection API...
+2026-03-22 13:53:55 - __main__ - INFO - Starting API server on 0.0.0.0:8000
+2026-03-22 13:53:55 - __main__ - INFO - API Docs: http://0.0.0.0:8000/docs
+2026-03-22 13:53:55 - backend.api.app - INFO - Starting Spam Detection API...
+2026-03-22 13:53:55 - backend.inference.predictor - INFO - Loading model from: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\models\logistic_regression_spam_pipeline.joblib
+2026-03-22 13:53:55 - backend.inference.predictor - INFO - Model loaded successfully
+2026-03-22 13:53:55 - backend.api.app - INFO - Model loaded successfully
