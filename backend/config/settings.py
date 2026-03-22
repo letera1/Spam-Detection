@@ -15,8 +15,9 @@ from dataclasses import dataclass, field
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 BACKEND_DIR = PROJECT_ROOT / "backend"
-MODELS_DIR = BACKEND_DIR / "models"
-DATA_DIR = BACKEND_DIR / "data"
+MODELS_DIR = PROJECT_ROOT / "models"
+RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
+DATA_DIR = RAW_DATA_DIR # Default fallback for data loaders
 
 # Ensure directories exist
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
