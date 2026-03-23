@@ -38,6 +38,7 @@
 - [Architecture](#-architecture)
 - [ML Pipeline](#-ml-pipeline)
 - [Quickstart](#-quickstart)
+- [Important Files](#-important-files)
 - [Project Structure](#-project-structure)
 - [API Reference](#-api-reference)
 - [Configuration](#-configuration)
@@ -231,6 +232,20 @@ curl -X POST http://localhost:8000/analyze \
   -H "Content-Type: application/json" \
   -d '{"text": "Congratulations! You won a free iPhone. Click here to claim!", "threshold": 0.5}'
 ```
+
+---
+
+## 📁 Important Files
+
+| File | Purpose |
+|---|---|
+| [`LICENSE`](LICENSE) | MIT License - grants permission to use, modify, and distribute the software |
+| [`Makefile`](Makefile) | Build automation - shortcuts for training, testing, running services |
+| [`backend/main.py`](backend/main.py) | CLI entry point - train models, start API, run predictions |
+| [`backend/requirements.txt`](backend/requirements.txt) | Python dependencies - all backend and ML libraries |
+| [`backend/config/settings.py`](backend/config/settings.py) | Central configuration - hyperparameters, preprocessing options |
+| [`frontend/.env.local`](frontend/.env.local) | Frontend environment - API endpoint configuration |
+| [`deploy/docker-compose.yml`](deploy/docker-compose.yml) | Container orchestration - multi-service deployment |
 
 ---
 
