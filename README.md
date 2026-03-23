@@ -131,21 +131,32 @@ python main.py interactive     # Interactive mode
 
 ```
 Spam-Detection/
-├── 📂 backend/
-│   ├── 📂 api/              # FastAPI endpoints
-│   ├── 📂 config/           # Configuration and settings
-│   ├── 📂 data/             # Data loading and preprocessing
-│   ├── 📂 inference/        # Prediction and analysis
-│   ├── 📂 models/           # ML model training and evaluation
-│   ├── 📂 utils/            # Utility functions
-│   └── 📄 main.py           # CLI entry point
-├── 📂 frontend/
-│   ├── 📂 app/              # Next.js app router pages
-│   ├── 📂 components/       # React components
-│   ├── 📂 lib/              # Utilities and API client
-│   └── 📂 public/           # Static assets
-├── 📂 models/               # Trained model files (auto-created)
-└── 📄 README.md             # You are here!
+├── 📂 backend/           # ML source code and FastAPI endpoints
+│   ├── 📂 api/              # FastAPI routes and controllers
+│   ├── 📂 config/           # Configuration and hyperparameters
+│   ├── 📂 data/             # Data loaders and text preprocessors
+│   ├── 📂 inference/        # ML prediction logic
+│   ├── 📂 models/           # Training pipelines and evaluators
+│   ├── 📂 utils/            # Shared utilities and logging
+│   └── 📄 main.py           # CLI entry point for training & serving
+├── 📂 data/              # Data layer (Cookiecutter standard)
+│   ├── 📂 external/         # Data from third party sources
+│   ├── 📂 interim/          # Intermediate data that has been transformed
+│   ├── 📂 processed/        # The final, canonical data sets for modeling
+│   └── 📂 raw/              # The original, immutable data dump
+├── 📂 deploy/            # Deployment and containerization files
+├── 📂 docs/              # Project documentation
+├── 📂 frontend/          # Next.js web application
+│   ├── 📂 app/              # App router pages
+│   ├── 📂 components/       # React UI components
+│   └── 📂 lib/              # Frontend API clients
+├── 📂 logs/              # Application and training logs
+├── 📂 models/            # Serialized models and pipeline artifacts (joblib, pkl)
+├── 📂 notebooks/         # Exploratory data analysis (EDA) and experimental notebooks
+├── 📂 tests/             # Unit and integration tests for ML and API
+├── 📄 .gitignore         # Configured for modern MLOps (Python, Node, Jupyter, Data)
+├── 📄 Makefile           # Build, train, and run automation
+└── 📄 README.md          # You are here!
 ```
 
 ---
