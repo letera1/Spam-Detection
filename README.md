@@ -5,9 +5,9 @@
 <br/>
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3+-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.4+-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
 
@@ -17,11 +17,12 @@
 
 <br/>
 
-[![CI](https://img.shields.io/github/actions/workflow/status/yourusername/spam-detection/ci.yml?branch=main&label=CI&style=flat-square)](https://github.com)
-[![Coverage](https://img.shields.io/badge/coverage-94%25-brightgreen?style=flat-square)](#testing)
-[![Inference](https://img.shields.io/badge/inference-%3C100ms-blue?style=flat-square)](#performance)
-[![API Uptime](https://img.shields.io/badge/uptime-99.9%25-brightgreen?style=flat-square)](#deployment)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-ff69b4?style=flat-square)](CONTRIBUTING.md)
+[![CI/CD](https://img.shields.io/github/actions/workflow/status/yourusername/spam-detection/ci.yml?branch=main&label=CI&logo=github&style=flat-square)](https://github.com/yourusername/spam-detection/actions)
+[![Coverage](https://img.shields.io/badge/coverage-94%25-brightgreen?style=flat-square)](#-testing)
+[![Inference](https://img.shields.io/badge/inference-%3C100ms-blue?style=flat-square)](#-performance)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000?style=flat-square)](https://github.com/psf/black)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/spam-detection?style=flat-square)](https://github.com/yourusername/spam-detection/stargazers)
 
 <br/>
 
@@ -175,6 +176,7 @@ Accuracy  ·  Precision  ·  Recall  ·  F1-Score  ·  ROC-AUC  ·  Confusion Ma
 | Python | 3.9+ | Backend & ML |
 | Node.js | 18+ | Frontend |
 | npm / yarn | Latest | Package management |
+| Git | Latest | Version control |
 
 ### 1. Clone the Repository
 
@@ -223,7 +225,17 @@ npm run dev
 
 > **Web App:** `http://localhost:3000`
 
-### 4. Verify Installation
+### 4. Setup Pre-Commit Hooks (Recommended)
+
+```bash
+# Install pre-commit for automatic code quality checks
+pip install pre-commit
+pre-commit install
+
+# This will automatically run linters and formatters on git commit
+```
+
+### 5. Verify Installation
 
 ```bash
 # Health check
@@ -239,48 +251,76 @@ curl -X POST http://localhost:8000/analyze \
 
 ## 📁 Important Files
 
-### Core Files
+### Core Project Files
 
 | File | Purpose |
 |---|---|
-| [`LICENSE`](LICENSE) | MIT License - grants permission to use, modify, and distribute the software |
+| [`LICENSE`](LICENSE) | MIT License - grants permission to use, modify, and distribute |
 | [`README.md`](README.md) | Project documentation and quickstart guide |
 | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines and development workflow |
 | [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Community standards and enforcement policies |
 | [`SECURITY.md`](SECURITY.md) | Security policy and vulnerability reporting |
 | [`CHANGELOG.md`](CHANGELOG.md) | Version history and upcoming features |
-| [`Makefile`](Makefile) | Build automation - shortcuts for training, testing, running services |
-| [`pyproject.toml`](pyproject.toml) | Modern Python project configuration and dependencies |
-| [`package.json`](package.json) | Root package configuration and monorepo scripts |
+| [`MODEL_CARD.md`](MODEL_CARD.md) | Model ethics, bias, limitations, and intended use |
+| [`CITATION.cff`](CITATION.cff) | Academic citation format |
+| [`Makefile`](Makefile) | Build automation shortcuts |
+| [`pyproject.toml`](pyproject.toml) | Modern Python project configuration |
+| [`setup.cfg`](setup.cfg) | Python tool configuration (flake8, pytest, mypy) |
+| [`package.json`](package.json) | Root package configuration and scripts |
 
-### Backend
-
-| File | Purpose |
-|---|---|
-| [`backend/main.py`](backend/main.py) | CLI entry point - train models, start API, run predictions |
-| [`backend/requirements.txt`](backend/requirements.txt) | Python dependencies - all backend and ML libraries |
-| [`backend/requirements-dev.txt`](backend/requirements-dev.txt) | Development dependencies - testing, linting, documentation |
-| [`backend/.env.example`](backend/.env.example) | Backend environment configuration template |
-| [`backend/Dockerfile`](backend/Dockerfile) | Backend container definition for production deployment |
-| [`backend/config/settings.py`](backend/config/settings.py) | Central configuration - hyperparameters, preprocessing options |
-
-### Frontend
+### Backend Files
 
 | File | Purpose |
 |---|---|
-| [`frontend/package.json`](frontend/package.json) | Frontend dependencies and npm scripts |
-| [`frontend/.env.example`](frontend/.env.example) | Frontend environment configuration template |
-| [`frontend/Dockerfile`](frontend/Dockerfile) | Frontend container definition for production deployment |
+| [`backend/main.py`](backend/main.py) | CLI entry point - train, API, predictions |
+| [`backend/requirements.txt`](backend/requirements.txt) | **Pinned** Python dependencies for reproducibility |
+| [`backend/requirements-dev.txt`](backend/requirements-dev.txt) | Development dependencies |
+| [`backend/.env.example`](backend/.env.example) | Backend environment template |
+| [`backend/Dockerfile`](backend/Dockerfile) | Backend container definition |
+| [`backend/.dockerignore`](backend/.dockerignore) | Backend Docker ignore rules |
+| [`backend/config/settings.py`](backend/config/settings.py) | Central configuration & hyperparameters |
 
-### CI/CD & Deployment
+### Frontend Files
 
 | File | Purpose |
 |---|---|
-| [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | Continuous integration - automated testing and linting |
-| [`.github/workflows/release.yml`](.github/workflows/release.yml) | Release automation - Docker builds and GitHub releases |
-| [`.github/ISSUE_TEMPLATE.md`](.github/ISSUE_TEMPLATE.md) | Standardized issue reporting template |
-| [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md) | Pull request description template |
-| [`deploy/docker-compose.yml`](deploy/docker-compose.yml) | Container orchestration - multi-service deployment |
+| [`frontend/package.json`](frontend/package.json) | Frontend dependencies and scripts |
+| [`frontend/.env.example`](frontend/.env.example) | Frontend environment template |
+| [`frontend/Dockerfile`](frontend/Dockerfile) | Frontend container definition |
+| [`frontend/.dockerignore`](frontend/.dockerignore) | Frontend Docker ignore rules |
+| [`frontend/tsconfig.json`](frontend/tsconfig.json) | TypeScript configuration |
+| [`frontend/next.config.js`](frontend/next.config.js) | Next.js configuration |
+| [`frontend/tailwind.config.js`](frontend/tailwind.config.js) | Tailwind CSS theme configuration |
+| [`frontend/.eslintrc.json`](frontend/.eslintrc.json) | ESLint rules |
+| [`frontend/.prettierrc`](frontend/.prettierrc) | Prettier formatting rules |
+| [`frontend/jest.config.js`](frontend/jest.config.js) | Jest test configuration |
+
+### CI/CD & Quality Assurance
+
+| File | Purpose |
+|---|---|
+| [`.pre-commit-config.yaml`](.pre-commit-config.yaml) | Pre-commit hooks for code quality |
+| [`.secrets.baseline`](.secrets.baseline) | Secrets detection baseline |
+| [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | Continuous integration pipeline |
+| [`.github/workflows/release.yml`](.github/workflows/release.yml) | Release automation |
+| [`.github/ISSUE_TEMPLATE.md`](.github/ISSUE_TEMPLATE.md) | Issue reporting template |
+| [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md) | PR description template |
+
+### Deployment
+
+| File | Purpose |
+|---|---|
+| [`deploy/docker-compose.yml`](deploy/docker-compose.yml) | Development Docker Compose |
+| [`deploy/docker-compose.prod.yml`](deploy/docker-compose.prod.yml) | Production Docker Compose |
+| [`.dockerignore`](.dockerignore) | Root Docker ignore rules |
+| [`.gitignore`](.gitignore) | Git ignore rules |
+
+### Documentation
+
+| File | Purpose |
+|---|---|
+| [`docs/README.md`](docs/README.md) | Documentation index |
+| [`docs/getting-started.md`](docs/getting-started.md) | Detailed installation guide |
 
 ---
 
