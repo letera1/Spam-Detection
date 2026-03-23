@@ -533,15 +533,34 @@ python main.py interactive        # Launch interactive REPL for manual testing
 
 ## 🤝 Contributing
 
-Contributions are welcome. Please follow the standard GitHub workflow:
+Contributions are welcome! Please follow our contribution guidelines:
 
-1. **Fork** the repository
-2. **Create** a feature branch: `git checkout -b feat/your-feature-name`
-3. **Commit** with a clear message: `git commit -m "feat: add transformer-based classifier"`
-4. **Push** to your fork: `git push origin feat/your-feature-name`
-5. **Open** a Pull Request against `main`
+1. **Read** the [Contributing Guide](CONTRIBUTING.md) for detailed instructions
+2. **Follow** the [Code of Conduct](CODE_OF_CONDUCT.md) in all interactions
+3. **Fork** the repository and create a feature branch
+4. **Submit** a Pull Request with tests and documentation
 
-Please ensure your PR includes relevant unit tests, updated documentation if behaviour changes, and passing CI (linting + tests). See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
+
+---
+
+## � Security
+
+We take security seriously. If you discover a vulnerability, please report it responsibly:
+
+- **Do NOT** create public GitHub issues for security vulnerabilities
+- **Email** your findings to: **[INSERT SECURITY EMAIL]**
+- **Review** our [Security Policy](SECURITY.md) for detailed procedures
+
+We respond to reports within 48 hours and work with researchers to resolve issues quickly.
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
+**Summary:** You are free to use, modify, distribute, and sublicense this software for any purpose, provided you include the original copyright and license notice.
 
 ---
 
@@ -555,12 +574,6 @@ Please ensure your PR includes relevant unit tests, updated documentation if beh
 | [Next.js](https://nextjs.org) | React production framework |
 | [Tailwind CSS](https://tailwindcss.com) | Utility-first styling |
 | [NLTK](https://www.nltk.org) | Natural Language Toolkit |
-
----
-
-## 📄 License
-
-Distributed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
