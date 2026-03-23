@@ -1,0 +1,69 @@
+# Root .dockerignore
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+README.md
+CHANGELOG.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+docs/
+
+# Development
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+coverage/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Data (large files, should be handled separately)
+data/raw/
+data/interim/
+data/processed/
+
+# Models (should be built or downloaded during container build)
+models/*.joblib
+models/*.pkl
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.md
+!backend/requirements.txt
+!backend/requirements-dev.txt

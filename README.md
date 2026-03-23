@@ -250,6 +250,8 @@ curl -X POST http://localhost:8000/analyze \
 | [`SECURITY.md`](SECURITY.md) | Security policy and vulnerability reporting |
 | [`CHANGELOG.md`](CHANGELOG.md) | Version history and upcoming features |
 | [`Makefile`](Makefile) | Build automation - shortcuts for training, testing, running services |
+| [`pyproject.toml`](pyproject.toml) | Modern Python project configuration and dependencies |
+| [`package.json`](package.json) | Root package configuration and monorepo scripts |
 
 ### Backend
 
@@ -266,13 +268,18 @@ curl -X POST http://localhost:8000/analyze \
 
 | File | Purpose |
 |---|---|
+| [`frontend/package.json`](frontend/package.json) | Frontend dependencies and npm scripts |
 | [`frontend/.env.example`](frontend/.env.example) | Frontend environment configuration template |
 | [`frontend/Dockerfile`](frontend/Dockerfile) | Frontend container definition for production deployment |
 
-### Deployment
+### CI/CD & Deployment
 
 | File | Purpose |
 |---|---|
+| [`.github/workflows/ci.yml`](.github/workflows/ci.yml) | Continuous integration - automated testing and linting |
+| [`.github/workflows/release.yml`](.github/workflows/release.yml) | Release automation - Docker builds and GitHub releases |
+| [`.github/ISSUE_TEMPLATE.md`](.github/ISSUE_TEMPLATE.md) | Standardized issue reporting template |
+| [`.github/PULL_REQUEST_TEMPLATE.md`](.github/PULL_REQUEST_TEMPLATE.md) | Pull request description template |
 | [`deploy/docker-compose.yml`](deploy/docker-compose.yml) | Container orchestration - multi-service deployment |
 
 ---
