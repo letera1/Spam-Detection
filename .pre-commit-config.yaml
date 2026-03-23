@@ -1,0 +1,127 @@
+# Pre-Commit Configuration for SpamShield ML
+# See: https://pre-commit.com/
+
+repos:
+  # Python Code Formatting
+  - repo: https://github.com/psf/black
+    rev: 24.3.0
+    hooks:
+      - id: black
+        name: Black (Python formatter)
+        language_version: python3.9
+        args: [--line-length=88]
+
+  # Python Import Sorting
+  - repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
+        name: isort (Python import sorter)
+        args: [--profile=black, --line-length=88]
+
+  # Python Linting
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        name: flake8 (Python linter)
+        args: [--max-line-length=88, --max-complexity=10, --extend-ignore=E203]
+        additional_dependencies:
+          - flake8-bugbear
+          - flake8-comprehensions
+
+  # Python Type Checking
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.9.0
+    hooks:
+      - id: mypy
+        name: mypy (Python type checker)
+        args: [--ignore-missing-imports, --no-strict-optional]
+        additional_dependencies:
+          - types-requests
+          - types-setuptools
+
+  # Security Linting
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.8
+    hooks:
+      - id: bandit
+        name: bandit (Python security linter)
+        args: [-ll, -r, backend/]
+
+  # YAML Linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        name: yamllint
+        args: [-d, relaxed]
+
+  # JSON Formatting
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        name: prettier (JSON/YAML formatter)
+        types_or: [json, yaml]
+
+  # Check for Merge Conflicts
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-merge-conflict
+        name: Check merge conflicts
+      - id: check-added-large-files
+        name: Check large files
+        args: [--maxkb=5000]
+      - id: check-case-conflict
+        name: Check case conflicts
+      - id: check-json
+        name: Check JSON syntax
+      - id: check-yaml
+        name: Check YAML syntax
+        args: [--unsafe]
+      - id: check-toml
+        name: Check TOML syntax
+      - id: end-of-file-fixer
+        name: Fix end of files
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+      - id: detect-private-key
+        name: Detect private keys
+      - id: detect-aws-credentials
+        name: Detect AWS credentials
+        args: [--allow-missing-credentials]
+
+  # Security: Check for hardcoded passwords
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.4.0
+    hooks:
+      - id: detect-secrets
+        name: Detect secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: package.lock.json
+
+  # Dockerfile Linting
+  - repo: https://github.com/hadolint/hadolint
+    rev: v2.12.0
+    hooks:
+      - id: hadolint-docker
+        name: Lint Dockerfiles
+        args: [--ignore=DL3008, --ignore=DL3013]
+
+  # Markdown Linting
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.39.0
+    hooks:
+      - id: markdownlint
+        name: Lint Markdown
+        args: [--disable, MD013]  # Disable line-length for prose
+
+# Skip certain files
+exclude: ^(models/|data/|\.venv/|venv/|node_modules/)
+
+# Default language version
+default_language_version:
+  python: python3.9
+  node: system
