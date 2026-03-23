@@ -46,6 +46,8 @@
 - [Testing](#-testing)
 - [Deployment](#-deployment)
 - [Contributing](#-contributing)
+- [Security](#-security)
+- [License](#-license)
 
 ---
 
@@ -237,14 +239,40 @@ curl -X POST http://localhost:8000/analyze \
 
 ## 📁 Important Files
 
+### Core Files
+
 | File | Purpose |
 |---|---|
 | [`LICENSE`](LICENSE) | MIT License - grants permission to use, modify, and distribute the software |
+| [`README.md`](README.md) | Project documentation and quickstart guide |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Contribution guidelines and development workflow |
+| [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md) | Community standards and enforcement policies |
+| [`SECURITY.md`](SECURITY.md) | Security policy and vulnerability reporting |
+| [`CHANGELOG.md`](CHANGELOG.md) | Version history and upcoming features |
 | [`Makefile`](Makefile) | Build automation - shortcuts for training, testing, running services |
+
+### Backend
+
+| File | Purpose |
+|---|---|
 | [`backend/main.py`](backend/main.py) | CLI entry point - train models, start API, run predictions |
 | [`backend/requirements.txt`](backend/requirements.txt) | Python dependencies - all backend and ML libraries |
+| [`backend/requirements-dev.txt`](backend/requirements-dev.txt) | Development dependencies - testing, linting, documentation |
+| [`backend/.env.example`](backend/.env.example) | Backend environment configuration template |
+| [`backend/Dockerfile`](backend/Dockerfile) | Backend container definition for production deployment |
 | [`backend/config/settings.py`](backend/config/settings.py) | Central configuration - hyperparameters, preprocessing options |
-| [`frontend/.env.local`](frontend/.env.local) | Frontend environment - API endpoint configuration |
+
+### Frontend
+
+| File | Purpose |
+|---|---|
+| [`frontend/.env.example`](frontend/.env.example) | Frontend environment configuration template |
+| [`frontend/Dockerfile`](frontend/Dockerfile) | Frontend container definition for production deployment |
+
+### Deployment
+
+| File | Purpose |
+|---|---|
 | [`deploy/docker-compose.yml`](deploy/docker-compose.yml) | Container orchestration - multi-service deployment |
 
 ---
