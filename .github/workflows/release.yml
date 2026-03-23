@@ -7,6 +7,10 @@ on:
     tags:
       - 'v*.*.*'
 
+env:
+  PYTHON_VERSION: "3.11"
+  NODE_VERSION: "18"
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -15,17 +19,18 @@ jobs:
       packages: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: ${{ env.NODE_VERSION }}
           registry-url: 'https://registry.npmjs.org'
 
       - name: Set up Docker Buildx
@@ -64,7 +69,11 @@ jobs:
         run: |
           echo "# Release ${{ github.ref_name }}" > RELEASE_NOTES.md
           echo "" >> RELEASE_NOTES.md
-          tail -n +2 CHANGELOG.md >> RELEASE_NOTES.md
+          if [ -f "CHANGELOG.md" ]; then
+            tail -n +2 CHANGELOG.md >> RELEASE_NOTES.md
+          else
+            echo "No changelog available" >> RELEASE_NOTES.md
+          fi
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
