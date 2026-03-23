@@ -1,9 +1,52 @@
+# Root package.json for monorepo-style project structure
 {
   "name": "spam-detection-system",
   "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack spam detection system with ML pipeline",
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "workspaces": [
+    "frontend"
+  ],
   "scripts": {
+    "dev": "npm run concurrently -D -- \"npm run start:backend\" \"npm run start:frontend\"",
     "start:backend": "cd backend && python main.py api",
     "start:frontend": "cd frontend && npm run dev",
-    "dev": "npm i concurrently -D && concurrently \"npm run start:backend\" \"npm run start:frontend\""
-  }
+    "install:all": "npm install && cd frontend && npm install",
+    "test:backend": "cd backend && pytest tests/ -v",
+    "test:frontend": "cd frontend && npm test",
+    "test": "npm run test:backend && npm run test:frontend",
+    "lint:backend": "cd backend && flake8 . && black --check .",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "format:frontend": "cd frontend && npm run format",
+    "build:frontend": "cd frontend && npm run build",
+    "docker:up": "docker compose -f deploy/docker-compose.yml up --build",
+    "docker:down": "docker compose -f deploy/docker-compose.yml down",
+    "docker:prod": "docker compose -f deploy/docker-compose.prod.yml up -d"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/spam-detection.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/spam-detection/issues"
+  },
+  "homepage": "https://github.com/yourusername/spam-detection#readme",
+  "keywords": [
+    "spam-detection",
+    "machine-learning",
+    "nlp",
+    "fastapi",
+    "nextjs",
+    "text-classification"
+  ]
 }
