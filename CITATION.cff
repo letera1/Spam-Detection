@@ -1,0 +1,38 @@
+# Configuration Citation File (CITATION.cff)
+# See: https://citation-file-format.github.io/
+
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "SpamShield ML: Production-Grade Spam Detection System"
+abstract: "End-to-end spam detection system combining classical NLP, ensemble ML, and a modern full-stack interface"
+authors:
+  - family-names: "Your Last Name"
+    given-names: "Your First Name"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+    email: "your.email@example.com"
+    affiliation: "Your Institution"
+version: 1.0.0
+doi: "10.0000/zenodo.0000000"  # Add when available
+date-released: 2026-03-23
+url: "https://github.com/yourusername/spam-detection"
+repository-code: "https://github.com/yourusername/spam-detection"
+license: MIT
+keywords:
+  - "spam detection"
+  - "natural language processing"
+  - "machine learning"
+  - "text classification"
+  - "FastAPI"
+  - "Next.js"
+  - "MLOps"
+language: "en"
+references:
+  - type: dataset
+    title: "SMS Spam Collection"
+    authors:
+      - family-names: "Almeida"
+        given-names: "Tiago A."
+      - family-names: "Gómez Hidalgo"
+        given-names: "José María"
+    year: 2012
+    url: "https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection"
