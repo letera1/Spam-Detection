@@ -1,4 +1,3 @@
-# Root package.json for monorepo-style project structure
 {
   "name": "spam-detection-system",
   "version": "1.0.0",

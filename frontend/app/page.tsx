@@ -124,16 +124,21 @@ export default function Home() {
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Header */}
         <header className="sticky top-0 z-50 w-full border-b border-cyan-500/20 bg-white/80 dark:bg-black/80 backdrop-blur">
-          <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="p-2.5 bg-blue-600/10 dark:bg-cyan-900/40 rounded-xl border border-blue-500/30 dark:border-cyan-500/50 shadow-[0_0_15px_rgba(0,255,255,0.2)]">
-                <Shield className="h-7 w-7 text-blue-600 dark:text-cyan-400" />
+          <div className="container mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-2 bg-blue-600/10 dark:bg-cyan-900/40 rounded-xl border border-blue-500/30 dark:border-cyan-500/50 shadow-[0_0_15px_rgba(0,255,255,0.2)]">
+                {/* Adding an image from the internet */}
+                <img 
+                  src="https://cdn-icons-png.flaticon.com/512/2889/2889312.png" 
+                  alt="Shield Logo" 
+                  className="h-8 w-8 sm:h-10 sm:w-10 object-contain"
+                />
               </div>
-              <div>
-                <h1 className="text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-purple-700 dark:from-cyan-400 dark:to-blue-500 tracking-tighter drop-shadow-sm">
+              <div className="text-center sm:text-left">
+                <h1 className="text-2xl sm:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-purple-700 dark:from-cyan-400 dark:to-blue-500 tracking-tighter drop-shadow-sm">
                   NexusML SpamGuard
                 </h1>
-                <p className="text-xs font-bold text-gray-500 dark:text-cyan-600/80 tracking-[0.2em] uppercase mt-1">
+                <p className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-cyan-600/80 tracking-[0.2em] uppercase mt-1">
                   Threat Detection Protocol V2
                 </p>
               </div>
@@ -167,22 +172,24 @@ export default function Home() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Tab Navigation */}
-        <div className="flex gap-3 mb-6 relative z-10 w-fit p-1 bg-black/20 dark:bg-cyan-950/20 backdrop-blur-md rounded-lg border border-gray-200 dark:border-cyan-500/20">
+        <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-3 mb-6 relative z-10 w-full sm:w-fit p-1 bg-black/20 dark:bg-cyan-950/20 backdrop-blur-md rounded-lg border border-gray-200 dark:border-cyan-500/20">
           <Button
             variant={activeTab === "analyze" ? "default" : "ghost"}
             onClick={() => setActiveTab("analyze")}
-            className={cn("gap-2 font-mono text-xs tracking-widest", activeTab === "analyze" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
+            className={cn("flex-1 sm:flex-none gap-2 font-mono text-xs sm:text-sm tracking-widest", activeTab === "analyze" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
           >
             <ShieldCheck className="h-4 w-4" />
-            ANALYZE_FEED
+            <span className="hidden sm:inline">ANALYZE_FEED</span>
+            <span className="sm:hidden">SCAN</span>
           </Button>
           <Button
             variant={activeTab === "history" ? "default" : "ghost"}
             onClick={() => setActiveTab("history")}
-            className={cn("gap-2 font-mono text-xs tracking-widest", activeTab === "history" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
+            className={cn("flex-1 sm:flex-none gap-2 font-mono text-xs sm:text-sm tracking-widest", activeTab === "history" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
           >
             <History className="h-4 w-4" />
-            SYS_LOGS
+            <span className="hidden sm:inline">SYS_LOGS</span>
+            <span className="sm:hidden">LOGS</span>
             {history.length > 0 && (
               <Badge variant="secondary" className="ml-1 bg-black/20 border-black/10">
                 {history.length}
@@ -192,10 +199,11 @@ export default function Home() {
           <Button
             variant={activeTab === "stats" ? "default" : "ghost"}
             onClick={() => setActiveTab("stats")}
-            className={cn("gap-2 font-mono text-xs tracking-widest", activeTab === "stats" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
+            className={cn("flex-1 sm:flex-none gap-2 font-mono text-xs sm:text-sm tracking-widest", activeTab === "stats" ? "bg-blue-600 hover:bg-blue-700 dark:bg-cyan-600 dark:text-black dark:hover:bg-cyan-500 shadow-[0_0_15px_rgba(0,255,255,0.4)]" : "text-gray-500 dark:text-cyan-500 hover:text-cyan-400")}
           >
             <BarChart3 className="h-4 w-4" />
-            METRICS
+            <span className="hidden sm:inline">METRICS</span>
+            <span className="sm:hidden">DATA</span>
           </Button>
         </div>
 

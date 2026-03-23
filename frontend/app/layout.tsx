@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Spam Detector - AI-Powered Message Analysis",
-  description: "Advanced spam detection system using machine learning to classify messages as spam or ham with detailed analysis and explanations.",
+  title: "NexusML SpamGuard - AI Spam Detection",
+  description: "Advanced spam detection system using machine learning to classify messages as spam or ham with detailed analysis.",
+  icons: {
+    icon: "https://cdn-icons-png.flaticon.com/512/2889/2889312.png", // Shield/Security icon
+  }
 };
 
 export default function RootLayout({
