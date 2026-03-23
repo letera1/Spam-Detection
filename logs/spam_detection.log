@@ -58,3 +58,4 @@
 2026-03-23 23:17:21 - backend.inference.predictor - INFO - Loading model from: C:\Users\LTR\Documents\projects\machineLearning\Spam-Detection\models\logistic_regression_spam_pipeline.joblib
 2026-03-23 23:17:21 - backend.inference.predictor - INFO - Model loaded successfully
 2026-03-23 23:17:21 - backend.api.app - INFO - Model loaded successfully
+2026-03-23 23:23:46 - backend.api.app - INFO - Shutting down Spam Detection API...
