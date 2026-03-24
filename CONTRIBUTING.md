@@ -69,7 +69,7 @@ Enhancement suggestions should be detailed and include:
 ### Prerequisites
 
 - Python 3.9+
-- Node.js 18+
+- Node.js 20+
 - Git
 
 ### Local Development
