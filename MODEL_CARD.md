@@ -202,11 +202,11 @@ If you use this model in your research:
 
 ```bibtex
 @software{spamshield_ml2026,
-  author = {Your Name},
+  author = {Letera Tujo},
   title = {SpamShield ML: Production-Grade Spam Detection System},
   year = {2026},
   publisher = {GitHub},
-  url = {https://github.com/yourusername/spam-detection},
+  url = {https://github.com/Letera1/spam-detection},
   license = {MIT}
 }
 ```
@@ -235,7 +235,7 @@ If you use this model in your research:
 ## Contact & Feedback
 
 For questions, concerns, or feedback about this model:
-- **GitHub Issues**: https://github.com/yourusername/spam-detection/issues
+- **GitHub Issues**: https://github.com/Letera1/spam-detection/issues
 - **Email**: [INSERT EMAIL]
 
 **Report Bias or Harm**: If you encounter biased or harmful outputs, please report them responsibly via our [Security Policy](SECURITY.md).

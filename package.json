@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Full-stack spam detection system with ML pipeline",
-  "author": "Your Name <your.email@example.com>",
+  "author": "Letera Tujo <leteratujo890@gmail.com>",
   "license": "MIT",
   "workspaces": [
     "frontend"
