@@ -174,7 +174,7 @@ Accuracy  ·  Precision  ·  Recall  ·  F1-Score  ·  ROC-AUC  ·  Confusion Ma
 | Dependency | Version | Purpose |
 |---|---|---|
 | Python | 3.9+ | Backend & ML |
-| Node.js | 18+ | Frontend |
+| Node.js | 20+ | Frontend |
 | npm / yarn | Latest | Package management |
 | Git | Latest | Version control |
 

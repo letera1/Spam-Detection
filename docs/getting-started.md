@@ -9,7 +9,7 @@ Before you begin, ensure you have the following installed:
 | Tool | Version | Purpose | Download |
 |------|---------|---------|----------|
 | Python | 3.9+ | Backend & ML | [python.org](https://www.python.org/downloads/) |
-| Node.js | 18+ | Frontend | [nodejs.org](https://nodejs.org/) |
+| Node.js | 20+ | Frontend | [nodejs.org](https://nodejs.org/) |
 | Git | Latest | Version control | [git-scm.com](https://git-scm.com/) |
 | pip | 21.0+ | Python packages | Included with Python |
 | npm | 9.0+ | Node packages | Included with Node.js |
