@@ -1,6 +1,6 @@
 {
-  "name": "spamshield-ml",
-  "version": "1.0.0",
+  "name": "frontend",
+  "version": "0.1.0",
   "private": true,
   "description": "Production-grade spam detection system with Next.js frontend",
   "author": "Your Name <your.email@example.com>",
